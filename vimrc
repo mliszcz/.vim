@@ -11,6 +11,9 @@ Plug 'joshdick/onedark.vim'
 
 Plug 'scrooloose/nerdcommenter'
 
+Plug 'gustafj/vim-ttcn'
+", { 'rtp': 'syntax', 'as': 'vim-ttcn-syntax' }
+
 call plug#end()
 
 let g:netrw_browse_split = 0
@@ -21,12 +24,17 @@ let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -28
 let g:netrw_chgwin = 2
 
+" ttcn3
+au BufRead,BufNewFile *.ttcn3 set filetype=ttcn
+
+let g:indentLine_char = '┊'
+
 " autocompletion
 filetype plugin on
 au FileType php setlocal ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
 au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-au FileType c setlocal ofu=ccomplete#CompleteCpp
+au FileType c,cpp setlocal ofu=ccomplete#Complete
 au FileType css setlocal ofu=csscomplete#CompleteCSS
 au FileType clojure setlocal ofu=clojurecomplete#Complete
 au FileType ada setlocal ofu=adacomplete#Complete
@@ -38,7 +46,8 @@ au FileType xml setlocal ofu=xmlcomplete#CompleteTags
 
 set completeopt=longest,menuone
 
-" inoremap <C-Space> <C-x><C-o>
+" C-Space opens autocomplete
+inoremap <C-@> <C-x><C-p>
 
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -97,5 +106,10 @@ match OverLength /\%81v.\+/
 syntax on
 colorscheme onedark
 " set background=dark
-" colorscheme deep-space 
 highlight Normal ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+
+" remove trailing whitespaces
+autocmd BufWritePre * %s/\s\+$//e
+
+" remove trailing empty lines
+autocmd BufWritePre * %s#\($\n\s*\)\+\%$##
