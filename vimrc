@@ -1,4 +1,7 @@
 
+scriptencoding utf-8
+set encoding=utf-8
+
 call plug#begin('~/.vim/plugged')
 
 Plug '~/.fzf'
@@ -16,6 +19,20 @@ Plug 'gustafj/vim-ttcn'
 
 call plug#end()
 
+" if has("multi_byte")
+"   if &termencoding == ""
+"     let &termencoding = &encoding
+"   endif
+"   set encoding=utf-8
+"   setglobal fileencoding=utf-8
+"   "setglobal bomb
+"   set fileencodings=ucs-bom,utf-8,latin1
+" endif
+"
+
+let g:indentLine_color_term = 59
+let g:indentLine_color_gui = '#5C6370'
+
 let g:netrw_browse_split = 0
 let g:netrw_altv = 1
 let g:netrw_banner = 0
@@ -27,7 +44,7 @@ let g:netrw_chgwin = 2
 " ttcn3
 au BufRead,BufNewFile *.ttcn3 set filetype=ttcn
 
-let g:indentLine_char = '┊'
+let g:indentLine_char = '|'
 
 " autocompletion
 filetype plugin on
@@ -77,6 +94,14 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
+
+" show whitespaces
+:if v:version > 704 || v:version == 704 && has("patch710")
+    set listchars=eol:¬,tab:»\ ,trail:·,space:·
+else
+    set listchars=eol:¬,tab:»\ ,trail:·
+endif
+set list
 
 " Alt+leftarrow will go one window left, etc.
 nmap <silent> <A-Up> :wincmd k<CR>
