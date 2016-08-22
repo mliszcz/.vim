@@ -17,6 +17,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'gustafj/vim-ttcn'
 ", { 'rtp': 'syntax', 'as': 'vim-ttcn-syntax' }
 
+Plug 'jlanzarotta/bufexplorer'
+
 call plug#end()
 
 " if has("multi_byte")
@@ -29,6 +31,11 @@ call plug#end()
 "   set fileencodings=ucs-bom,utf-8,latin1
 " endif
 "
+"
+let $FZF_DEFAULT_COMMAND= 'pt -g ""'
+
+" switch buffers on C-b
+nnoremap <C-b> :buffers<CR>:b<Space>
 
 let g:indentLine_color_term = 59
 let g:indentLine_color_gui = '#5C6370'
@@ -137,4 +144,4 @@ highlight Normal ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=
 autocmd BufWritePre * %s/\s\+$//e
 
 " remove trailing empty lines
-autocmd BufWritePre * %s#\($\n\s*\)\+\%$##
+" autocmd BufWritePre * %s#\($\n\s*\)\+\%$##
