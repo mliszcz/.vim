@@ -35,7 +35,8 @@ call plug#end()
 let $FZF_DEFAULT_COMMAND= 'pt -g ""'
 
 " switch buffers on C-b
-nnoremap <C-b> :buffers<CR>:b<Space>
+" nnoremap <C-b> :buffers<CR>:b<Space>
+nnoremap <C-o> :Buffers<CR>
 
 let g:indentLine_color_term = 59
 let g:indentLine_color_gui = '#5C6370'
@@ -46,7 +47,7 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -28
-let g:netrw_chgwin = 2
+" let g:netrw_chgwin = 2
 
 " ttcn3
 au BufRead,BufNewFile *.ttcn3 set filetype=ttcn
