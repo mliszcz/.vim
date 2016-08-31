@@ -11,15 +11,11 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug '~/.fzf'
-
 Plug 'junegunn/fzf.vim'
-
 Plug 'Yggdroot/indentLine'
-
 Plug 'joshdick/onedark.vim'
-
 Plug 'scrooloose/nerdcommenter'
-
+Plug 'sheerun/vim-polyglot'
 Plug 'gustafj/vim-ttcn'
 
 call plug#end()
