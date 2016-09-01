@@ -44,6 +44,7 @@ set textwidth=80
 set colorcolumn=+1
 set mouse-=a
 set ruler
+set laststatus=2
 
 
 " behavior -------------------------------------------------------------------
