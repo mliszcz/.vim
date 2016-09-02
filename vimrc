@@ -81,8 +81,12 @@ set completeopt=menuone,preview
 if v:version > 704 || v:version == 704 && has("patch784")
   set completeopt+=noinsert
   " based on https://gist.github.com/vheon/10104517
+  let s:complete_after = 3
   autocmd InsertCharPre *
-    \ if !pumvisible() | call feedkeys("\<C-x>\<C-n>", "nt") | endif
+    \ if !pumvisible()
+    \ && getline('.')[col('.') - s:complete_after].v:char =~# '\k\k'
+    \ | call feedkeys("\<C-x>\<C-n>", "nt") | endif
+  inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 else
   set completeopt+=longest
 endif
