@@ -46,6 +46,19 @@ set mouse-=a
 set ruler
 set laststatus=2
 set title
+set scrolloff=5
+set hidden
+set nowrap
+set autoindent
+set copyindent
+set showmatch
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set undolevels=100
+set nobackup
+set noswapfile
 
 
 " behavior -------------------------------------------------------------------
