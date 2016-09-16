@@ -59,6 +59,7 @@ set incsearch
 set undolevels=100
 set nobackup
 set noswapfile
+set cursorline
 
 
 " behavior -------------------------------------------------------------------
