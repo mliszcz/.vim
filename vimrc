@@ -60,6 +60,7 @@ set undolevels=100
 set nobackup
 set noswapfile
 set cursorline
+set autoread
 
 
 " behavior -------------------------------------------------------------------
