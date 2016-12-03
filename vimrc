@@ -61,6 +61,7 @@ set nobackup
 set noswapfile
 set cursorline
 set autoread
+set whichwrap+=<,>,h,l,[,]
 
 
 " behavior -------------------------------------------------------------------
