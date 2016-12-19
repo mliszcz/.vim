@@ -10,13 +10,21 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug '~/.fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
 Plug 'gustafj/vim-ttcn'
+
+if has('unix')
+  " works only with fzf's git checkout, which contains vim plugin
+  let s:fzf_dir = system('which fzf | xargs readlink -f | xargs dirname | xargs dirname | xargs echo -n')
+  if filereadable(s:fzf_dir . '/plugin/fzf.vim')
+    " https://github.com/junegunn/vim-plug/wiki/api
+    call plug#(s:fzf_dir)
+    Plug 'junegunn/fzf.vim'
+  endif
+endif
 
 call plug#end()
 
@@ -135,6 +143,8 @@ vmap <C-_> <leader>c<Space>
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
+
+let g:vim_markdown_conceal = 0
 
 " ttcn plugin does not recognize this extension
 autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
