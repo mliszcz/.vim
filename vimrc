@@ -1,4 +1,11 @@
 
+" some packages have plugins in this dir, which is not loaded by neovim
+let s:vimfiles_dir = '/usr/share/vim/vimfiles'
+if isdirectory(s:vimfiles_dir)
+  exe 'set rtp^=' . s:vimfiles_dir
+  exe 'set rtp+=' . s:vimfiles_dir . '/after'
+endif
+
 if has("multi_byte")
   if !exists('g:encoding_set') && !has('nvim')
     set encoding=utf-8
@@ -16,15 +23,18 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
 Plug 'gustafj/vim-ttcn'
 
-if has('unix')
-  " works only with fzf's git checkout, which contains vim plugin
-  let s:fzf_dir = system('which fzf | xargs readlink -f | xargs dirname | xargs dirname | xargs echo -n')
-  if filereadable(s:fzf_dir . '/plugin/fzf.vim')
-    " https://github.com/junegunn/vim-plug/wiki/api
-    call plug#(s:fzf_dir)
-    Plug 'junegunn/fzf.vim'
+if executable('fzf')
+  if !exists('g:loaded_fzf') && has('unix')
+    " try to search for plugin where executable is placed
+    " e.g. in case fzf has been installed from a git checkout
+    let s:fzf_dir = system('which fzf | xargs readlink -f | xargs dirname | xargs dirname | xargs echo -n')
+    if filereadable(s:fzf_dir . '/plugin/fzf.vim')
+      call plug#(s:fzf_dir)
+    endif
   endif
 endif
+
+Plug 'junegunn/fzf.vim', executable('fzf') ? {} : { 'on': [] }
 
 call plug#end()
 
@@ -144,7 +154,9 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 
+" http://stackoverflow.com/questions/18160953/disable-latex-symbol-conversion-in-vim
 let g:vim_markdown_conceal = 0
+let g:tex_conceal = ""
 
 " ttcn plugin does not recognize this extension
 autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
