@@ -104,6 +104,10 @@ autocmd BufWritePre * %s/\s\+$//e
 " remove trailing empty lines
 " autocmd BufWritePre * %s#\($\n\s*\)\+\%$##
 
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
+
 
 " autocomplete ---------------------------------------------------------------
 
@@ -132,9 +136,16 @@ endif
 let g:plug_threads = 1
 
 let g:fzf_layout = { 'down': '~40%' }
-let $FZF_DEFAULT_COMMAND= 'pt --hidden -g ""'
 map <C-p> :Files<CR>
 map <C-o> :Buffers<CR>
+
+" https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
+command! -bang -nargs=* Find call fzf#vim#grep(
+  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '
+  \ .shellescape(<q-args>)
+  \ .'| tr -d "\017"',
+  \ 1,
+  \ <bang>0)
 
 let g:indentLine_color_term = 59
 let g:indentLine_color_gui = '#5C6370'
