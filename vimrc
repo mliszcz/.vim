@@ -47,7 +47,6 @@ endif
 
 syntax on
 colorscheme onedark
-set background=light
 highlight Normal
   \ ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 
