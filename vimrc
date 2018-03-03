@@ -1,5 +1,5 @@
 
-" some packages have plugins in this dir, which is not loaded by neovim
+" neovim does not look here by default (https://bugs.archlinux.org/task/47029)
 let s:vimfiles_dir = '/usr/share/vim/vimfiles'
 if isdirectory(s:vimfiles_dir)
   exe 'set rtp^=' . s:vimfiles_dir
@@ -15,28 +15,25 @@ if has("multi_byte")
   set fileencodings=ucs-bom,utf-8,latin1
 endif
 
-call plug#begin('~/.vim/plugged')
+set packpath^=~/.vim
 
-Plug 'Yggdroot/indentLine'
-Plug 'joshdick/onedark.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'sheerun/vim-polyglot'
-Plug 'gustafj/vim-ttcn'
+packadd! indentLine
+packadd! onedark.vim
+packadd! nerdcommenter
+packadd! vim-polyglot
+packadd! vim-ttcn
 
 if executable('fzf')
-  if !exists('g:loaded_fzf') && has('unix')
-    " try to search for plugin where executable is placed
-    " e.g. in case fzf has been installed from a git checkout
-    let s:fzf_dir = system('which fzf | xargs readlink -f | xargs dirname | xargs dirname | xargs echo -n')
-    if filereadable(s:fzf_dir . '/plugin/fzf.vim')
-      call plug#(s:fzf_dir)
+  " fzf package shall put the 'base' plugin in an existing runtimepath
+  " if fzf is being run from a git checkout, one needs to set FZF_HOME
+  if !exists('g:loaded_fzf')
+    let s:fzf_base_plugin = $FZF_HOME . '/plugin/fzf.vim'
+    if filereadable(s:fzf_base_plugin)
+      exe 'source ' . s:fzf_base_plugin
     endif
   endif
+  packadd! fzf.vim
 endif
-
-Plug 'junegunn/fzf.vim', executable('fzf') ? {} : { 'on': [] }
-
-call plug#end()
 
 
 " appearance -----------------------------------------------------------------
@@ -130,9 +127,6 @@ endif
 
 
 " plugins --------------------------------------------------------------------
-
-" plug sometimes crashes on paralell downloads
-let g:plug_threads = 1
 
 let g:fzf_layout = { 'down': '~40%' }
 map <C-p> :Files<CR>

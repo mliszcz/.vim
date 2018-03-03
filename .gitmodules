@@ -1,4 +1,24 @@
-[submodule "vim-plug"]
-    path = vim-plug
-    url = https://github.com/junegunn/vim-plug.git
-    shallow = true
+[submodule "pack/plugins/opt/indentLine"]
+	path = pack/plugins/opt/indentLine
+	url = https://github.com/Yggdroot/indentLine
+	branch = master
+[submodule "pack/plugins/opt/onedark.vim"]
+	path = pack/plugins/opt/onedark.vim
+	url = https://github.com/joshdick/onedark.vim
+	branch = master
+[submodule "pack/plugins/opt/nerdcommenter"]
+	path = pack/plugins/opt/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter
+	branch = master
+[submodule "pack/plugins/opt/vim-polyglot"]
+	path = pack/plugins/opt/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+	branch = master
+[submodule "pack/plugins/opt/vim-ttcn"]
+	path = pack/plugins/opt/vim-ttcn
+	url = https://github.com/gustafj/vim-ttcn
+	branch = master
+[submodule "pack/plugins/opt/fzf.vim"]
+	path = pack/plugins/opt/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+	branch = master
