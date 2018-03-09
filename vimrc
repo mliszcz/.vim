@@ -128,6 +128,9 @@ endif
 
 " plugins --------------------------------------------------------------------
 
+" NERDCommenter:filetype plugins should be enabled.
+filetype plugin on
+
 let g:fzf_layout = { 'down': '~40%' }
 map <C-p> :Files<CR>
 map <C-o> :Buffers<CR>
