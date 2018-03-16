@@ -76,6 +76,8 @@ set noswapfile
 set cursorline
 set autoread
 set whichwrap+=<,>,h,l,[,]
+set formatoptions-=t
+set formatoptions-=c
 
 
 " behavior -------------------------------------------------------------------
@@ -132,16 +134,27 @@ endif
 filetype plugin on
 
 let g:fzf_layout = { 'down': '~40%' }
-map <C-p> :Files<CR>
-map <C-o> :Buffers<CR>
+
+" bang makes window to use 100% height
+map <C-p> :Files!<CR>
+map <C-o> :Buffers!<CR>
 
 " https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 command! -bang -nargs=* Find call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '
-  \ .shellescape(<q-args>)
-  \ .'| tr -d "\017"',
+  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.svn/*" --color "always" '
+  \     .shellescape(<q-args>)
+  \     .'| tr -d "\017"',
   \ 1,
   \ <bang>0)
+
+" https://www.reddit.com/r/vim/comments/7axmsb/i_cant_believe_how_good_fzf_is/
+command! -bang -nargs=* Rg call fzf#vim#grep(
+  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.svn/*" --color "always" '
+  \     .shellescape(<q-args>)
+  \     .'| tr -d "\017"',
+  \ 1,
+  \ fzf#vim#with_preview('up:60%'),
+  \ <bang>1)
 
 let g:indentLine_color_term = 59
 let g:indentLine_color_gui = '#5C6370'
