@@ -9,5 +9,5 @@ ln -s ~/.vim ~/.config/nvim
 Remember to pull the plugins after checkout:
 
 ```
-git submodule update --init --recursive
+git submodule update --init --recursive --recommend-shallow
 ```
