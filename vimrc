@@ -153,7 +153,8 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
   \     .shellescape(<q-args>)
   \     .'| tr -d "\017"',
   \ 1,
-  \ fzf#vim#with_preview('up:60%'),
+  \ <bang>1 ? fzf#vim#with_preview('up:60%')
+  \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>1)
 
 let g:indentLine_color_term = 59
