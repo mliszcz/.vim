@@ -140,17 +140,10 @@ map <C-p> :Files!<CR>
 map <C-o> :Buffers!<CR>
 
 " https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
-command! -bang -nargs=* Find call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.svn/*" --color "always" '
-  \     .shellescape(<q-args>)
-  \     .'| tr -d "\017"',
-  \ 1,
-  \ <bang>0)
-
 " https://www.reddit.com/r/vim/comments/7axmsb/i_cant_believe_how_good_fzf_is/
 command! -bang -nargs=* Rg call fzf#vim#grep(
   \ 'rg --column --line-number --no-heading --fixed-strings --hidden --follow --glob "!.git/*" --glob "!.svn/*" --color "always" '
-  \     .shellescape(<q-args>)
+  \     .join(map(split(<q-args>), 'shellescape(v:val)'))
   \     .'| tr -d "\017"',
   \ 1,
   \ <bang>1 ? fzf#vim#with_preview('up:60%')
