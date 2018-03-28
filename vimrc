@@ -149,7 +149,7 @@ command! -bang -nargs=* Find call fzf#vim#grep(
 
 " https://www.reddit.com/r/vim/comments/7axmsb/i_cant_believe_how_good_fzf_is/
 command! -bang -nargs=* Rg call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!.svn/*" --color "always" '
+  \ 'rg --column --line-number --no-heading --fixed-strings --hidden --follow --glob "!.git/*" --glob "!.svn/*" --color "always" '
   \     .shellescape(<q-args>)
   \     .'| tr -d "\017"',
   \ 1,
