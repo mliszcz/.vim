@@ -54,13 +54,14 @@ if v:version > 704 || v:version == 704 && has("patch710")
 endif
 
 set number
+set relativenumber
 set textwidth=80
 set colorcolumn=+1
 set mouse-=a
 set ruler
 set laststatus=2
 set title
-set scrolloff=5
+set scrolloff=10
 set hidden
 set nowrap
 set autoindent
@@ -79,10 +80,16 @@ set whichwrap+=<,>,h,l,[,]
 set formatoptions-=t
 set formatoptions-=c
 
+autocmd Filetype markdown setlocal formatoptions+=t
+
+set wildmenu
+set wildmode=full
+set showcmd
 
 " behavior -------------------------------------------------------------------
 
 set expandtab
+set smarttab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -106,6 +113,10 @@ if executable('rg')
   set grepprg=rg\ --vimgrep
 endif
 
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Right> <nop>
+noremap <Left> <nop>
 
 " autocomplete ---------------------------------------------------------------
 
@@ -131,7 +142,10 @@ endif
 " plugins --------------------------------------------------------------------
 
 " NERDCommenter:filetype plugins should be enabled.
+" https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
+filetype on
 filetype plugin on
+filetype indent on
 
 let g:fzf_layout = { 'down': '~40%' }
 
