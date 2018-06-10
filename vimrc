@@ -97,12 +97,6 @@ autocmd Filetype
   \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown
   \ setlocal expandtab ts=2 sts=2 sw=2
 
-" Alt+leftarrow will go one window left, etc.
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-
 " remove trailing whitespaces
 autocmd BufWritePre * %s/\s\+$//e
 
@@ -117,6 +111,11 @@ noremap <Up> <nop>
 noremap <Down> <nop>
 noremap <Right> <nop>
 noremap <Left> <nop>
+
+inoremap <Up> <nop>
+inoremap <Down> <nop>
+inoremap <Right> <nop>
+inoremap <Left> <nop>
 
 " autocomplete ---------------------------------------------------------------
 
