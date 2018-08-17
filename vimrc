@@ -19,9 +19,9 @@ set packpath^=~/.vim
 
 packadd! indentLine
 packadd! onedark.vim
-packadd! nerdcommenter
 packadd! vim-polyglot
 packadd! vim-ttcn
+packadd! vim-commentary
 
 if executable('fzf')
   " fzf package shall put the 'base' plugin in an existing runtimepath
@@ -140,11 +140,7 @@ endif
 
 " plugins --------------------------------------------------------------------
 
-" NERDCommenter:filetype plugins should be enabled.
-" https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
-filetype on
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 let g:fzf_layout = { 'down': '~40%' }
 
@@ -173,13 +169,6 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -28
-
-" C-/ comments-out line/selection
-nmap <C-_> <leader>c<Space>
-vmap <C-_> <leader>c<Space>
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDCommentEmptyLines = 1
 
 " http://stackoverflow.com/questions/18160953/disable-latex-symbol-conversion-in-vim
 let g:vim_markdown_conceal = 0

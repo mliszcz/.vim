@@ -6,10 +6,6 @@
 	path = pack/plugins/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
 	branch = master
-[submodule "pack/plugins/opt/nerdcommenter"]
-	path = pack/plugins/opt/nerdcommenter
-	url = https://github.com/scrooloose/nerdcommenter
-	branch = master
 [submodule "pack/plugins/opt/vim-polyglot"]
 	path = pack/plugins/opt/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
@@ -22,3 +18,6 @@
 	path = pack/plugins/opt/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
 	branch = master
+[submodule "pack/plugins/opt/vim-commentary"]
+	path = pack/plugins/opt/vim-commentary
+	url = https://github.com/tpope/vim-commentary
