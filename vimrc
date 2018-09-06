@@ -1,27 +1,26 @@
 
-" neovim does not look here by default (https://bugs.archlinux.org/task/47029)
+if has("multi_byte")
+  set encoding=utf-8
+  set fileencoding=utf-8
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+
+" neovim does not look there by default (https://bugs.archlinux.org/task/47029)
 let s:vimfiles_dir = '/usr/share/vim/vimfiles'
 if isdirectory(s:vimfiles_dir)
   exe 'set rtp^=' . s:vimfiles_dir
   exe 'set rtp+=' . s:vimfiles_dir . '/after'
 endif
 
-if has("multi_byte")
-  if !exists('g:encoding_set') && !has('nvim')
-    set encoding=utf-8
-    let g:encoding_set = 1
-  endif
-  setglobal fileencoding=utf-8
-  set fileencodings=ucs-bom,utf-8,latin1
+if v:version >= 800
+  set packpath^=~/.vim
+  packadd! indentLine
+  packadd! onedark.vim
+  packadd! vim-polyglot
+  packadd! vim-ttcn
+  packadd! vim-commentary
+  packadd! fzf.vim
 endif
-
-set packpath^=~/.vim
-
-packadd! indentLine
-packadd! onedark.vim
-packadd! vim-polyglot
-packadd! vim-ttcn
-packadd! vim-commentary
 
 if executable('fzf')
   " fzf package shall put the 'base' plugin in an existing runtimepath
@@ -32,7 +31,6 @@ if executable('fzf')
       exe 'source ' . s:fzf_base_plugin
     endif
   endif
-  packadd! fzf.vim
 endif
 
 
@@ -145,8 +143,13 @@ filetype plugin indent on
 let g:fzf_layout = { 'down': '~40%' }
 
 " bang makes window to use 100% height
-map <C-p> :Files!<CR>
 map <C-o> :Buffers!<CR>
+
+if exists(':Files')
+  map <C-p> :Files!<CR>
+else
+  map <C-p> :FZF!<CR>
+endif
 
 " https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 " https://www.reddit.com/r/vim/comments/7axmsb/i_cant_believe_how_good_fzf_is/
