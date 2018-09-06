@@ -34,16 +34,18 @@ if executable('fzf')
 endif
 
 
-" appearance -----------------------------------------------------------------
+" options -----------------------------------------------------------------
 
-if has("termguicolors")
-  set termguicolors
-endif
+filetype plugin indent on " filetype detection, plugin and indent autoloading
 
 syntax on
 colorscheme onedark
 highlight Normal
   \ ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+
+if has("termguicolors")
+  set termguicolors
+endif
 
 set list
 set listchars=eol:¬,tab:»\ ,trail:·
@@ -84,8 +86,6 @@ set wildmenu
 set wildmode=full
 set showcmd
 
-" behavior -------------------------------------------------------------------
-
 set expandtab
 set smarttab
 set tabstop=4
@@ -95,15 +95,24 @@ autocmd Filetype
   \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown
   \ setlocal expandtab ts=2 sts=2 sw=2
 
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
+
+
+" autocommands ----------------------------------------------------------------
+
 " remove trailing whitespaces
 autocmd BufWritePre * %s/\s\+$//e
 
 " remove trailing empty lines
 " autocmd BufWritePre * %s#\($\n\s*\)\+\%$##
 
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-endif
+" ttcn plugin does not recognize this extension
+autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
+
+
+" mappings --------------------------------------------------------------------
 
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -114,6 +123,36 @@ inoremap <Up> <nop>
 inoremap <Down> <nop>
 inoremap <Right> <nop>
 inoremap <Left> <nop>
+
+" bang makes window to use 100% height
+noremap <C-o> :Buffers!<CR>
+
+if exists(':Files')
+  noremap <C-p> :Files!<CR>
+else
+  noremap <C-p> :FZF!<CR>
+endif
+
+
+" plugin options --------------------------------------------------------------
+
+let g:fzf_layout = { 'down': '~40%' }
+
+let g:indentLine_color_term = 59
+let g:indentLine_color_gui = '#5C6370'
+let g:indentLine_char = '|'
+
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_sort_sequence = '[\/]$,*'
+let g:netrw_winsize = -28
+
+" http://stackoverflow.com/questions/18160953/disable-latex-symbol-conversion-in-vim
+let g:vim_markdown_conceal = 0
+let g:tex_conceal = ""
+
 
 " autocomplete ---------------------------------------------------------------
 
@@ -136,20 +175,7 @@ else
 endif
 
 
-" plugins --------------------------------------------------------------------
-
-filetype plugin indent on
-
-let g:fzf_layout = { 'down': '~40%' }
-
-" bang makes window to use 100% height
-map <C-o> :Buffers!<CR>
-
-if exists(':Files')
-  map <C-p> :Files!<CR>
-else
-  map <C-p> :FZF!<CR>
-endif
+" grep ------------------------------------------------------------------------
 
 " https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 " https://www.reddit.com/r/vim/comments/7axmsb/i_cant_believe_how_good_fzf_is/
@@ -162,20 +188,3 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
   \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>1)
 
-let g:indentLine_color_term = 59
-let g:indentLine_color_gui = '#5C6370'
-let g:indentLine_char = '|'
-
-let g:netrw_browse_split = 0
-let g:netrw_altv = 1
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_sort_sequence = '[\/]$,*'
-let g:netrw_winsize = -28
-
-" http://stackoverflow.com/questions/18160953/disable-latex-symbol-conversion-in-vim
-let g:vim_markdown_conceal = 0
-let g:tex_conceal = ""
-
-" ttcn plugin does not recognize this extension
-autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
