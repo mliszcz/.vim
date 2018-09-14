@@ -47,6 +47,11 @@ if has("termguicolors")
   set termguicolors
 endif
 
+" fix true colors (see :h xterm-true-color)
+" https://github.com/vim/vim/issues/993
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 set list
 set listchars=eol:¬,tab:»\ ,trail:·
 if v:version > 704 || v:version == 704 && has("patch710")
