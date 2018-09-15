@@ -110,6 +110,24 @@ if executable('rg')
   set grepprg=rg\ --vimgrep
 endif
 
+if has('unnamedplus')
+  set clipboard+=unnamedplus
+endif
+
+if executable('clipboard-copy') && executable('clipboard-paste')
+  let g:clipboard = {
+    \   'name': 'generic',
+    \   'copy': {
+    \      '+': 'clipboard-copy',
+    \      '*': 'clipboard-copy',
+    \    },
+    \   'paste': {
+    \      '+': 'clipboard-paste',
+    \      '*': 'clipboard-paste',
+    \   },
+    \   'cache_enabled': 1,
+    \ }
+endif
 
 " autocommands ----------------------------------------------------------------
 
