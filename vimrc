@@ -34,17 +34,17 @@ if executable('fzf')
 endif
 
 
-" options -----------------------------------------------------------------
+" syntax highlighting ---------------------------------------------------------
 
 filetype plugin indent on " filetype detection, plugin and indent autoloading
 
 syntax on
 
+autocmd ColorScheme * highlight Normal
+  \ ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+
 let g:onedark_terminal_italics = 1
 colorscheme onedark
-
-highlight Normal
-  \ ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 
 if has("termguicolors")
   set termguicolors
@@ -54,6 +54,9 @@ endif
 " https://github.com/vim/vim/issues/993
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+
+" options -----------------------------------------------------------------
 
 set list
 set listchars=eol:¬,tab:»\ ,trail:·
