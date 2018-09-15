@@ -39,7 +39,10 @@ endif
 filetype plugin indent on " filetype detection, plugin and indent autoloading
 
 syntax on
+
+let g:onedark_terminal_italics = 1
 colorscheme onedark
+
 highlight Normal
   \ ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 
