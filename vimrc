@@ -114,16 +114,16 @@ if has('unnamedplus')
   set clipboard+=unnamedplus
 endif
 
-if executable('clipboard-copy') && executable('clipboard-paste')
+if !empty($CLIPBOARD_COPY_CMD) && !empty($CLIPBOARD_PASTE_CMD)
   let g:clipboard = {
     \   'name': 'generic',
     \   'copy': {
-    \      '+': 'clipboard-copy',
-    \      '*': 'clipboard-copy',
+    \      '+': $CLIPBOARD_COPY_CMD,
+    \      '*': $CLIPBOARD_COPY_CMD,
     \    },
     \   'paste': {
-    \      '+': 'clipboard-paste',
-    \      '*': 'clipboard-paste',
+    \      '+': $CLIPBOARD_PASTE_CMD,
+    \      '*': $CLIPBOARD_PASTE_CMD,
     \   },
     \   'cache_enabled': 1,
     \ }
