@@ -40,8 +40,7 @@ filetype plugin indent on " filetype detection, plugin and indent autoloading
 
 syntax on
 
-autocmd ColorScheme * highlight Normal
-  \ ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 
 let g:onedark_terminal_italics = 1
 colorscheme onedark
@@ -60,14 +59,14 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set list
 set listchars=eol:¬,tab:»\ ,trail:·
-if v:version > 704 || v:version == 704 && has("patch710")
+if has('patch-7.4-710')
   set listchars+=space:·
 endif
 
 set number
 set relativenumber
-set textwidth=80
-set colorcolumn=+1
+set textwidth=0
+set colorcolumn=80
 set mouse-=a
 set ruler
 set laststatus=2
@@ -82,7 +81,7 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
-set undolevels=100
+set undolevels=1000
 set nobackup
 set noswapfile
 set cursorline
