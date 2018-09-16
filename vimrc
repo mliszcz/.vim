@@ -109,11 +109,9 @@ if executable('rg')
   set grepprg=rg\ --vimgrep
 endif
 
-if has('unnamedplus')
-  set clipboard+=unnamedplus
-endif
-
 if !empty($CLIPBOARD_COPY_CMD) && !empty($CLIPBOARD_PASTE_CMD)
+  " must be set before unnamedplus check and other clipboard operations
+  " https://github.com/neovim/neovim/issues/8017
   let g:clipboard = {
     \   'name': 'generic',
     \   'copy': {
@@ -126,6 +124,10 @@ if !empty($CLIPBOARD_COPY_CMD) && !empty($CLIPBOARD_PASTE_CMD)
     \   },
     \   'cache_enabled': 1,
     \ }
+endif
+
+if has('unnamedplus')
+  set clipboard+=unnamedplus
 endif
 
 " autocommands ----------------------------------------------------------------
