@@ -27,7 +27,7 @@ if executable('fzf')
   " if fzf is being run from a git checkout, one needs to set FZF_HOME
   if !exists('g:loaded_fzf')
     let s:fzf_base_plugin = $FZF_HOME . '/plugin/fzf.vim'
-    if filereadable(s:fzf_base_plugin)
+    if filereadable(expand(s:fzf_base_plugin))
       exe 'source ' . s:fzf_base_plugin
     endif
   endif
