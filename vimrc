@@ -141,6 +141,9 @@ autocmd BufWritePre * %s/\s\+$//e
 " ttcn plugin does not recognize this extension
 autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
 
+" https://github.com/neovim/neovim/issues/7994
+autocmd InsertLeave * set nopaste
+
 
 " mappings --------------------------------------------------------------------
 
