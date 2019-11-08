@@ -89,6 +89,7 @@ set autoread
 set whichwrap+=<,>,h,l,[,]
 set formatoptions-=t
 set formatoptions-=c
+set conceallevel=0
 
 autocmd Filetype markdown setlocal formatoptions+=t
 
@@ -183,6 +184,7 @@ let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_winsize = -28
 
 " http://stackoverflow.com/questions/18160953/disable-latex-symbol-conversion-in-vim
+let g:indentLine_setConceal = 0
 let g:vim_markdown_conceal = 0
 let g:tex_conceal = ""
 
