@@ -102,7 +102,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 autocmd Filetype
-  \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown
+  \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown,purescript
   \ setlocal expandtab ts=2 sts=2 sw=2
 
 if executable('rg')
