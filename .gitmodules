@@ -1,23 +1,29 @@
-[submodule "pack/plugins/opt/indentLine"]
-	path = pack/plugins/opt/indentLine
-	url = https://github.com/Yggdroot/indentLine
-	branch = master
-[submodule "pack/plugins/opt/onedark.vim"]
-	path = pack/plugins/opt/onedark.vim
-	url = https://github.com/joshdick/onedark.vim
-	branch = master
-[submodule "pack/plugins/opt/vim-polyglot"]
-	path = pack/plugins/opt/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot
-	branch = master
-[submodule "pack/plugins/opt/vim-ttcn"]
-	path = pack/plugins/opt/vim-ttcn
+[submodule "pack/plugins/opt/gustafj/vim-ttcn"]
+	path = pack/plugins/opt/gustafj/vim-ttcn
 	url = https://github.com/gustafj/vim-ttcn
-	branch = master
-[submodule "pack/plugins/opt/fzf.vim"]
-	path = pack/plugins/opt/fzf.vim
+[submodule "pack/plugins/opt/junegunn/fzf.vim"]
+	path = pack/plugins/opt/junegunn/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-	branch = master
-[submodule "pack/plugins/opt/vim-commentary"]
-	path = pack/plugins/opt/vim-commentary
-	url = https://github.com/tpope/vim-commentary
+[submodule "pack/plugins/opt/tomtom/tcomment_vim"]
+	path = pack/plugins/opt/tomtom/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim
+[submodule "pack/plugins/opt/sheerun/vim-polyglot"]
+	path = pack/plugins/opt/sheerun/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+[submodule "pack/plugins/opt/lukas-reineke/indent-blankline.nvim"]
+	path = pack/plugins/opt/lukas-reineke/indent-blankline.nvim
+	url = https://github.com/lukas-reineke/indent-blankline.nvim
+[submodule "pack/plugins/opt/navarasu/onedark.nvim"]
+	path = pack/plugins/opt/navarasu/onedark.nvim
+	url = https://github.com/navarasu/onedark.nvim
+[submodule "pack/plugins/opt/neovim/nvim-lspconfig"]
+	path = pack/plugins/opt/neovim/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "pack/plugins/opt/nvim-treesitter/nvim-treesitter"]
+	path = pack/plugins/opt/nvim-treesitter/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
+	branch = 0.5-compat
+[submodule "pack/plugins/opt/nvim-treesitter/nvim-treesitter-textobjects"]
+	path = pack/plugins/opt/nvim-treesitter/nvim-treesitter-textobjects
+	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+	branch = 0.5-compat

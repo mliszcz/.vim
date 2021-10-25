@@ -1,67 +1,43 @@
+" This configuration is intended to be used with recent Neovim versions,
+" but basic support is provided also for Vim starting from 7.4 version.
 
-if has("multi_byte")
+if has('multi_byte')
   set encoding=utf-8
   set fileencoding=utf-8
   set fileencodings=ucs-bom,utf-8,latin1
 endif
 
-" neovim does not look there by default (https://bugs.archlinux.org/task/47029)
-let s:vimfiles_dir = '/usr/share/vim/vimfiles'
-if isdirectory(s:vimfiles_dir)
-  exe 'set rtp^=' . s:vimfiles_dir
-  exe 'set rtp+=' . s:vimfiles_dir . '/after'
-endif
-
 if v:version >= 800
   set packpath^=~/.vim
-  packadd! indentLine
-  packadd! onedark.vim
-  packadd! vim-polyglot
-  packadd! vim-ttcn
-  packadd! vim-commentary
-  packadd! fzf.vim
+  packadd! gustafj/vim-ttcn
+  packadd! junegunn/fzf.vim
+  packadd! tomtom/tcomment_vim
+  packadd! sheerun/vim-polyglot
 endif
 
-if executable('fzf')
-  " fzf package shall put the 'base' plugin in an existing runtimepath
-  " if fzf is being run from a git checkout, one needs to set FZF_HOME
-  if !exists('g:loaded_fzf')
-    let s:fzf_base_plugin = $FZF_HOME . '/plugin/fzf.vim'
-    if filereadable(expand(s:fzf_base_plugin))
-      exe 'source ' . s:fzf_base_plugin
-    endif
-  endif
+if has('nvim-0.5')
+  packadd! lukas-reineke/indent-blankline.nvim
+  packadd! navarasu/onedark.nvim
+  packadd! neovim/nvim-lspconfig
+  packadd! nvim-treesitter/nvim-treesitter
+  packadd! nvim-treesitter/nvim-treesitter-textobjects
 endif
 
+let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
+let g:fzf_preview_window = [] " Disable preview for commands like :Files.
 
-" syntax highlighting ---------------------------------------------------------
-
-filetype plugin indent on " filetype detection, plugin and indent autoloading
-
+" The syntax on/enable option is not necessary when using Tree-sitter but
+" without it being enabled the ColorScheme autocommands are not triggered.
 syntax on
 
-autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-
-let g:onedark_terminal_italics = 1
-colorscheme onedark
-
-if has("termguicolors")
-  set termguicolors
-endif
-
-" fix true colors (see :h xterm-true-color)
-" https://github.com/vim/vim/issues/993
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-
-" options -----------------------------------------------------------------
-
-set list
-set listchars=eol:¬,tab:»\ ,trail:·
-if has('patch-7.4-710')
-  set listchars+=space:·
-endif
+" Filetype detection is needed to get syntax highlighting for files opened
+" after startup (with :e or :Files). Otherwise it only works for the first
+" opened file passed in the command line argument (nvim <file>). This also
+" applies to any languages handled by Tree-sitter.
+" Plugin and indent files are ignored when using Tree-sitter but otherwise
+" plugin file is needed to load the syntax highlighting and indent file is
+" needed to have language-specific indentation rules.
+filetype plugin indent on
 
 set number
 set relativenumber
@@ -90,63 +66,88 @@ set whichwrap+=<,>,h,l,[,]
 set formatoptions-=t
 set formatoptions-=c
 set conceallevel=0
-
-autocmd Filetype markdown setlocal formatoptions+=t
-
+set showcmd
 set wildmenu
 set wildmode=full
-set showcmd
-
 set expandtab
 set smarttab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-autocmd Filetype
-  \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown,purescript
-  \ setlocal expandtab ts=2 sts=2 sw=2
 
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-endif
-
-if !empty($CLIPBOARD_COPY_CMD) && !empty($CLIPBOARD_PASTE_CMD)
-  " must be set before unnamedplus check and other clipboard operations
-  " https://github.com/neovim/neovim/issues/8017
-  let g:clipboard = {
-    \   'name': 'generic',
-    \   'copy': {
-    \      '+': $CLIPBOARD_COPY_CMD,
-    \      '*': $CLIPBOARD_COPY_CMD,
-    \    },
-    \   'paste': {
-    \      '+': $CLIPBOARD_PASTE_CMD,
-    \      '*': $CLIPBOARD_PASTE_CMD,
-    \   },
-    \   'cache_enabled': 1,
-    \ }
+if has('termguicolors')
+  set termguicolors
 endif
 
 if has('unnamedplus')
   set clipboard+=unnamedplus
 endif
 
-" autocommands ----------------------------------------------------------------
+" Do not use custom listchars in a Linux console,
+" the font does not provide all these characters.
+set list
+if $TERM != 'linux'
+  set listchars=eol:¬,tab:»\ ,trail:·
+  if has('patch-7.4-710')
+    set listchars+=space:·
+  endif
+endif
 
-" remove trailing whitespaces
+if has('patch-7.4-2201')
+  set signcolumn=yes
+endif
+
+set completeopt=menu,menuone
+if has('patch-7.4-775')
+  set completeopt+=noinsert
+endif
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" Remove any backgrounds. EndOfBuffer is for the initial welcome window.
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+autocmd ColorScheme * highlight EndOfBuffer ctermbg=NONE guibg=NONE
+autocmd ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE
+
+" Make indentation lines and whitespaces darker.
+autocmd ColorScheme onedark highlight NonText guifg=#404040
+autocmd ColorScheme onedark highlight Whitespace guifg=#404040
+autocmd ColorScheme onedark highlight IndentBlanklineChar guifg=#404040
+autocmd ColorScheme onedark highlight IndentBlanklineSpaceChar guifg=#404040
+
+" Automatically open quick fix window after it is populated (:grep only).
+autocmd QuickFixCmdPost grep copen
+
+" Indent certain languages with only two spaces.
+autocmd Filetype
+  \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown,purescript
+  \ setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+
+" Auto-wrap text on textwidth in markdown files.
+autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
+
+" Automatically remove trailing whitespaces on save.
 autocmd BufWritePre * %s/\s\+$//e
 
-" remove trailing empty lines
-" autocmd BufWritePre * %s#\($\n\s*\)\+\%$##
+" Automatically remove trailing empty lines on save.
+autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
 
-" ttcn plugin does not recognize this extension
+" The TTCN plugin does not recognize ttcn3 extension.
 autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
 
-" https://github.com/neovim/neovim/issues/7994
-autocmd InsertLeave * set nopaste
+" Colorscheme must be set after the ColorScheme autocommands are defined.
+if has('nvim-0.5')
+  let g:onedark_style = 'darker'
+  colorscheme onedark
+endif
 
-
-" mappings --------------------------------------------------------------------
+" Fix true colors (see :h xterm-true-color),
+" https://github.com/vim/vim/issues/993
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -158,68 +159,102 @@ inoremap <Down> <nop>
 inoremap <Right> <nop>
 inoremap <Left> <nop>
 
-" bang makes window to use 100% height
-noremap <C-o> :Buffers!<CR>
+map <space> <leader>
 
-if exists(':Files')
-  noremap <C-p> :Files!<CR>
-else
-  noremap <C-p> :FZF!<CR>
-endif
+" Bang makes window to use 100% height. Note: these commands are from fzf-vim.
+noremap <leader>p :Files!<CR>
+noremap <leader>o :Buffers!<CR>
 
+noremap <leader>g :silent execute "grep! <cword>"<CR>
 
-" plugin options --------------------------------------------------------------
+nnoremap <silent> [q :cprevious<CR>
+nnoremap <silent> ]q :cnext<CR>
+nnoremap <silent> [Q :cfirst<CR>
+nnoremap <silent> ]Q :clast<CR>
+nnoremap <silent> [<C-Q> :cpfile<CR>
+nnoremap <silent> ]<C-Q> :cnfile<CR>
 
-let g:fzf_layout = { 'down': '~40%' }
+nnoremap <silent> [b :bprev<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :brewind<CR>
 
-let g:indentLine_color_term = 59
-let g:indentLine_color_gui = '#5C6370'
-let g:indentLine_char = '|'
+" Mappings for the builtin LSP client. It is ok to not have them configured in
+" Lua inside the on_attach callback because the commands are resolved when the
+" mapping is executed.
+nnoremap <silent> <leader>jD :lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <leader>jd :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>ji :lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <leader>jr :lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>ja :lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>jf :lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>js :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
 
-let g:netrw_browse_split = 0
-let g:netrw_altv = 1
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_sort_sequence = '[\/]$,*'
-let g:netrw_winsize = -28
-
-" http://stackoverflow.com/questions/18160953/disable-latex-symbol-conversion-in-vim
-let g:indentLine_setConceal = 0
-let g:vim_markdown_conceal = 0
-let g:tex_conceal = ""
-
-
-" autocomplete ---------------------------------------------------------------
-
-" C-Space opens autocomplete
-inoremap <C-@> <C-x><C-n>
-
-set completeopt=menuone,preview
-
-if v:version > 704 || v:version == 704 && has("patch784")
-  set completeopt+=noinsert
-  " based on https://gist.github.com/vheon/10104517
-  let s:complete_after = 3
-  autocmd InsertCharPre *
-    \ if !pumvisible()
-    \ && getline('.')[col('.') - s:complete_after].v:char =~# '\k\k'
-    \ | call feedkeys("\<C-x>\<C-n>", "nt") | endif
-  inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-else
-  set completeopt+=longest
-endif
-
-
-" grep ------------------------------------------------------------------------
-
-" https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
-" https://www.reddit.com/r/vim/comments/7axmsb/i_cant_believe_how_good_fzf_is/
+" Wrapper for ripgrep. Bang (Rg!) will make it use just half of the screen.
+" https://github.com/junegunn/fzf.vim#example-rg-command-with-preview-window
 command! -bang -nargs=* Rg call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --fixed-strings --hidden --follow --glob "!.git/*" --glob "!.svn/*" --color "always" '
-  \     .join(map(split(<q-args>), 'shellescape(v:val)'))
-  \     .'| tr -d "\017"',
+  \ 'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>),
   \ 1,
   \ <bang>1 ? fzf#vim#with_preview('up:60%')
   \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>1)
 
+if has('nvim-0.5')
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    -- Do not run `:h syntax` for files handled by Tree-sitter.
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true,
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+  },
+}
+
+-- See below link for more details regarding LSP configuration:
+-- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
+local function lsp_on_attach(client, bufnr)
+  -- Use LSP for omni completion. This must be done after the LSP server is
+  -- attached to the buffer, otherwise v:lua.vim.lsp.omnifunc is not defined.
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+require'lspconfig'.pyright.setup{
+  on_attach = lsp_on_attach
+}
+
+require'lspconfig'.gopls.setup{
+  on_attach = lsp_on_attach
+}
+
+require'lspconfig'.clangd.setup{
+  on_attach = lsp_on_attach,
+  cmd = {
+    'clangd',
+    '--compile-commands-dir=build',
+    '--background-index',
+    '--clang-tidy',
+    '--cross-file-rename',
+    '--header-insertion=never',
+    '--header-insertion-decorators',
+  }
+}
+EOF
+endif

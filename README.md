@@ -1,13 +1,15 @@
 # .vim
 
-This can be cloned into `~/.vim` and then symlinked to neovim config:
+Configuration for Vim and Neovim.
 
-```
-ln -s ~/.vim ~/.config/nvim
-```
+## Installation
 
-Remember to pull the plugins after checkout:
-
-```
-git submodule update --init --recursive --recommend-shallow
-```
+1. Clone the repository into `~/.vim` for use with Vim
+2. Make a symlink for use with Neovim:
+   ```
+   ln -s ~/.vim ~/.config/nvim
+   ```
+3. Pull the plugins:
+   ```
+   git submodule update --init --recursive --recommend-shallow
+   ```
