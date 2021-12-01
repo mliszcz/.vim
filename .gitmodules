@@ -22,8 +22,6 @@
 [submodule "pack/plugins/opt/nvim-treesitter/nvim-treesitter"]
 	path = pack/plugins/opt/nvim-treesitter/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
-	branch = 0.5-compat
 [submodule "pack/plugins/opt/nvim-treesitter/nvim-treesitter-textobjects"]
 	path = pack/plugins/opt/nvim-treesitter/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-	branch = 0.5-compat

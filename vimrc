@@ -7,7 +7,7 @@ if has('multi_byte')
   set fileencodings=ucs-bom,utf-8,latin1
 endif
 
-if v:version >= 800
+if has('packages')
   set packpath^=~/.vim
   packadd! gustafj/vim-ttcn
   packadd! junegunn/fzf.vim
@@ -19,6 +19,9 @@ if has('nvim-0.5')
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
   packadd! neovim/nvim-lspconfig
+endif
+
+if has('nvim-0.6')
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-textobjects
 endif
@@ -107,6 +110,29 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
+if has('nvim-0.6')
+lua << EOF
+  local ts = require'nvim-treesitter'
+  local options = {
+    indicator_size = 50,
+    type_patterns = { 'class', 'function', 'method' },
+  }
+  function _G.SourceCodeLocation()
+    return ts.statusline(options)
+  end
+EOF
+
+  " The status line is similar to the default one but includes source code
+  " location information. See also: https://unix.stackexchange.com/a/518439.
+  set statusline=
+  set statusline+=%f\                             " Path to the file.
+  set statusline+=%h%w%m%r\                       " [Help][Preview][+/-][RO]
+  set statusline+=%=                              " Center alignment.
+  set statusline+=%{v:lua.SourceCodeLocation()}\  " Source code location.
+  set statusline+=%=                              " Right alignment
+  set statusline+=%-14.(%l,%c%V%)\ %P             " Cursor position.
+endif
+
 " Remove any backgrounds. EndOfBuffer is for the initial welcome window.
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 autocmd ColorScheme * highlight EndOfBuffer ctermbg=NONE guibg=NONE
@@ -135,8 +161,11 @@ autocmd BufWritePre * %s/\s\+$//e
 " Automatically remove trailing empty lines on save.
 autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
 
-" The TTCN plugin does not recognize ttcn3 extension.
+" The TTCN plugin does not recognize the .ttcn3 extension.
 autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
+
+" A .tpp file with template definitions.
+autocmd BufRead,BufNewFile *.tpp set filetype=cpp
 
 " Colorscheme must be set after the ColorScheme autocommands are defined.
 if has('nvim-0.5')
@@ -174,6 +203,9 @@ nnoremap <silent> ]Q :clast<CR>
 nnoremap <silent> [<C-Q> :cpfile<CR>
 nnoremap <silent> ]<C-Q> :cnfile<CR>
 
+noremap <silent> [f :colder<CR>
+noremap <silent> ]f :cnewer<CR>
+
 nnoremap <silent> [b :bprev<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
@@ -201,7 +233,7 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
   \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>1)
 
-if has('nvim-0.5')
+if has('nvim-0.6')
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -227,7 +259,11 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+EOF
+endif
 
+if has('nvim-0.5')
+lua << EOF
 -- See below link for more details regarding LSP configuration:
 -- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 local function lsp_on_attach(client, bufnr)
