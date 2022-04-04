@@ -156,10 +156,10 @@ autocmd Filetype
 autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
 
 " Automatically remove trailing whitespaces on save.
-autocmd BufWritePre * %s/\s\+$//e
+" autocmd BufWritePre * %s/\s\+$//e
 
 " Automatically remove trailing empty lines on save.
-autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
+" autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
 
 " The TTCN plugin does not recognize the .ttcn3 extension.
 autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
@@ -221,8 +221,9 @@ nnoremap <silent> <leader>jr :lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>ja :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>jf :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>js :lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
+
+nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
 
 " Wrapper for ripgrep. Bang (Rg!) will make it use just half of the screen.
 " https://github.com/junegunn/fzf.vim#example-rg-command-with-preview-window
@@ -255,6 +256,34 @@ require'nvim-treesitter.configs'.setup {
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
+        ["ia"] = "@parameter.inner",
+        ["aa"] = "@parameter.outer",
+      },
+    },
+    swap = {
+        enable = true,
+        swap_next = {
+          ["<leader>a"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>A"] = "@parameter.inner",
+        },
+      },
+
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]a"] = "@parameter.outer",
+      },
+      goto_next_end = {
+        ["]A"] = "@parameter.outer",
+      },
+      goto_previous_start = {
+        ["[a"] = "@parameter.outer",
+      },
+      goto_previous_end = {
+        ["[A"] = "@parameter.outer",
       },
     },
   },
