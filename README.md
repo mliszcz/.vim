@@ -14,3 +14,7 @@ Configuration for Vim and Neovim.
    ```
    git submodule update --init --recursive --recommend-shallow
    ```
+1. If not provided by the distribution, install these plugins manually:
+   ```
+   wget -P plugin https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim
+   ```
