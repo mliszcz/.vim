@@ -1,6 +1,9 @@
 " This configuration is intended to be used with recent Neovim versions,
 " but basic support is provided also for Vim starting from 7.4 version.
 
+" https://stackoverflow.com/questions/4976776/how-to-get-path-to-the-current-vimscript-being-executed
+let s:vimdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+
 if has('multi_byte')
   set encoding=utf-8
   set fileencoding=utf-8
@@ -8,7 +11,7 @@ if has('multi_byte')
 endif
 
 if has('packages')
-  set packpath^=~/.vim
+  execute 'set packpath^=' . s:vimdir
   packadd! gustafj/vim-ttcn
   packadd! junegunn/fzf.vim
   packadd! tomtom/tcomment_vim
