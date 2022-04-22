@@ -172,7 +172,7 @@ autocmd BufRead,BufNewFile *.tpp set filetype=cpp
 
 " Colorscheme must be set after the ColorScheme autocommands are defined.
 if has('nvim-0.5')
-  let g:onedark_style = 'darker'
+  let g:onedark_config = {'style': 'darker'}
   colorscheme onedark
 endif
 
