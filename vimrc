@@ -18,13 +18,10 @@ if has('packages')
   packadd! sheerun/vim-polyglot
 endif
 
-if has('nvim-0.5')
+if has('nvim-0.7')
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
   packadd! neovim/nvim-lspconfig
-endif
-
-if has('nvim-0.6')
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-textobjects
 endif
@@ -113,7 +110,7 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-if has('nvim-0.6')
+if has('nvim-0.7')
 lua << EOF
   local ts = require'nvim-treesitter'
   local options = {
@@ -171,7 +168,7 @@ autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
 autocmd BufRead,BufNewFile *.tpp set filetype=cpp
 
 " Colorscheme must be set after the ColorScheme autocommands are defined.
-if has('nvim-0.5')
+if has('nvim-0.7')
   let g:onedark_config = {'style': 'darker'}
   colorscheme onedark
 endif
@@ -237,7 +234,7 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
   \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>1)
 
-if has('nvim-0.6')
+if has('nvim-0.7')
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -291,11 +288,7 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
-EOF
-endif
 
-if has('nvim-0.5')
-lua << EOF
 -- See below link for more details regarding LSP configuration:
 -- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 local function lsp_on_attach(client, bufnr)
