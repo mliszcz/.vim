@@ -25,3 +25,6 @@
 [submodule "pack/plugins/opt/nvim-treesitter/nvim-treesitter-textobjects"]
 	path = pack/plugins/opt/nvim-treesitter/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+[submodule "pack/plugins/opt/lewis6991/gitsigns.nvim"]
+	path = pack/plugins/opt/lewis6991/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim

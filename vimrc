@@ -19,6 +19,7 @@ if has('packages')
 endif
 
 if has('nvim-0.7')
+  packadd! lewis6991/gitsigns.nvim
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
   packadd! neovim/nvim-lspconfig
@@ -97,7 +98,7 @@ if $TERM != 'linux'
 endif
 
 if has('patch-7.4-2201')
-  set signcolumn=yes
+  set signcolumn=yes:2
 endif
 
 set completeopt=menu,menuone
@@ -236,6 +237,9 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
 
 if has('nvim-0.7')
 lua << EOF
+
+require('gitsigns').setup()
+
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
