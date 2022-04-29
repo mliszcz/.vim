@@ -25,6 +25,7 @@ if has('nvim-0.7')
   packadd! neovim/nvim-lspconfig
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-textobjects
+  packadd! p00f/nvim-ts-rainbow
 endif
 
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
@@ -257,6 +258,11 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = {
     enable = true,
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
   },
   textobjects = {
     select = {
