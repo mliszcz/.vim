@@ -316,22 +316,41 @@ local function lsp_on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
-require'lspconfig'.pyright.setup{
+local lspconfig = require 'lspconfig'
+local configs = require 'lspconfig.configs'
+
+-- Add custom server configuration for ntt: https://github.com/nokia/ntt.
+if not configs.ntt then
+  configs.ntt = {
+    default_config = {
+      cmd = {'ntt', 'langserver'},
+      filetypes = {'ttcn3', 'ttcn'},
+      root_dir = lspconfig.util.root_pattern 'package.yml',
+    }
+  }
+end
+
+lspconfig.pyright.setup{
   on_attach = lsp_on_attach
 }
 
-require'lspconfig'.gopls.setup{
+lspconfig.ntt.setup{
   on_attach = lsp_on_attach
 }
 
-require'lspconfig'.clangd.setup{
+lspconfig.gopls.setup{
+  on_attach = lsp_on_attach
+}
+
+lspconfig.clangd.setup{
   on_attach = lsp_on_attach,
-  cmd = {
-    'clangd',
-    '--compile-commands-dir=build',
+  cmd = {'clangd',
+    -- Use a match-all query driver to support compilers in no-standard paths.
+    -- https://clangd.llvm.org/troubleshooting.html#cant-find-standard-library-headers-map-stdioh-etc
+    -- https://github.com/clangd/clangd/issues/539
+    '--query-driver=/**/*',
     '--background-index',
     '--clang-tidy',
-    '--cross-file-rename',
     '--header-insertion=never',
     '--header-insertion-decorators',
   }
