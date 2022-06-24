@@ -31,3 +31,6 @@
 [submodule "pack/plugins/opt/p00f/nvim-ts-rainbow"]
 	path = pack/plugins/opt/p00f/nvim-ts-rainbow
 	url = https://github.com/p00f/nvim-ts-rainbow
+[submodule "pack/plugins/opt/nvim-treesitter/playground"]
+	path = pack/plugins/opt/nvim-treesitter/playground
+	url = https://github.com/nvim-treesitter/playground

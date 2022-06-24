@@ -25,6 +25,7 @@ if has('nvim-0.7')
   packadd! neovim/nvim-lspconfig
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-textobjects
+  packadd! nvim-treesitter/playground
   packadd! p00f/nvim-ts-rainbow
 endif
 
@@ -43,6 +44,8 @@ syntax on
 " plugin file is needed to load the syntax highlighting and indent file is
 " needed to have language-specific indentation rules.
 filetype plugin indent on
+
+au BufRead,BufNewFile *.k3.txt,*.err,*.out set filetype=log
 
 set number
 set relativenumber
@@ -307,6 +310,8 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+-- vim.lsp.set_log_level("debug")
 
 -- See below link for more details regarding LSP configuration:
 -- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
