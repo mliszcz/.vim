@@ -253,6 +253,13 @@ lua << EOF
 
 require('gitsigns').setup()
 
+-- Use cpp parser with alternative operator names support.
+-- See: https://github.com/tree-sitter/tree-sitter-cpp/pull/165
+local treesitter_cpp = require "nvim-treesitter.parsers".get_parser_configs().cpp
+treesitter_cpp.install_info.url = "https://github.com/azabiong/tree-sitter-cpp"
+treesitter_cpp.install_info.branch = "04c181ddd0a5b09cfcbd332ade71fc91b44454bf"
+treesitter_cpp.install_info.revision = "04c181ddd0a5b09cfcbd332ade71fc91b44454bf"
+
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
@@ -310,8 +317,6 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
-
--- vim.lsp.set_log_level("debug")
 
 -- See below link for more details regarding LSP configuration:
 -- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
