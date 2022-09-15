@@ -225,6 +225,11 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :brewind<CR>
 
+nnoremap <silent> ]c :Gitsigns next_hunk<CR>
+nnoremap <silent> [c :Gitsigns prev_hunk<CR>
+
+nnoremap <silent> <leader>jc :Gitsigns preview_hunk<CR>
+
 " Mappings for the builtin LSP client. It is ok to not have them configured in
 " Lua inside the on_attach callback because the commands are resolved when the
 " mapping is executed.
@@ -253,12 +258,15 @@ lua << EOF
 
 require('gitsigns').setup()
 
--- Use cpp parser with alternative operator names support.
--- See: https://github.com/tree-sitter/tree-sitter-cpp/pull/165
+-- Use cpp parser with alternative operator names support and fixed try blocks.
+-- https://github.com/tree-sitter/tree-sitter-cpp/pull/170
+-- https://github.com/tree-sitter/tree-sitter-cpp/pull/176
+-- For alternative operators update nvim-treesitter/queries/cpp/highlights.scm:
+-- https://github.com/tree-sitter/tree-sitter-cpp/pull/165#issuecomment-1191304118
 local treesitter_cpp = require "nvim-treesitter.parsers".get_parser_configs().cpp
-treesitter_cpp.install_info.url = "https://github.com/azabiong/tree-sitter-cpp"
-treesitter_cpp.install_info.branch = "04c181ddd0a5b09cfcbd332ade71fc91b44454bf"
-treesitter_cpp.install_info.revision = "04c181ddd0a5b09cfcbd332ade71fc91b44454bf"
+treesitter_cpp.install_info.url = "https://github.com/mliszcz/tree-sitter-cpp"
+treesitter_cpp.install_info.branch = "integration"
+treesitter_cpp.install_info.revision = "integration"
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -324,6 +332,8 @@ local function lsp_on_attach(client, bufnr)
   -- Use LSP for omni completion. This must be done after the LSP server is
   -- attached to the buffer, otherwise v:lua.vim.lsp.omnifunc is not defined.
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Autoformat on save.
+  -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 end
 
 local lspconfig = require 'lspconfig'
@@ -354,6 +364,10 @@ lspconfig.gopls.setup{
 
 lspconfig.clangd.setup{
   on_attach = lsp_on_attach,
+  -- Use a custom TMPDIR for storing (potentially large) precompiled preambles.
+  cmd_env = vim.env.CLANGD_TMPDIR and {
+    TMPDIR = vim.env.CLANGD_TMPDIR
+  },
   cmd = {'clangd',
     -- Use a match-all query driver to support compilers in no-standard paths.
     -- https://clangd.llvm.org/troubleshooting.html#cant-find-standard-library-headers-map-stdioh-etc
