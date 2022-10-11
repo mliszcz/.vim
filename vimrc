@@ -258,16 +258,6 @@ lua << EOF
 
 require('gitsigns').setup()
 
--- Use cpp parser with alternative operator names support and fixed try blocks.
--- https://github.com/tree-sitter/tree-sitter-cpp/pull/170
--- https://github.com/tree-sitter/tree-sitter-cpp/pull/176
--- For alternative operators update nvim-treesitter/queries/cpp/highlights.scm:
--- https://github.com/tree-sitter/tree-sitter-cpp/pull/165#issuecomment-1191304118
-local treesitter_cpp = require "nvim-treesitter.parsers".get_parser_configs().cpp
-treesitter_cpp.install_info.url = "https://github.com/mliszcz/tree-sitter-cpp"
-treesitter_cpp.install_info.branch = "integration"
-treesitter_cpp.install_info.revision = "integration"
-
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
