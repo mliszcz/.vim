@@ -220,6 +220,13 @@ nnoremap <silent> ]<C-Q> :cnfile<CR>
 noremap <silent> [f :colder<CR>
 noremap <silent> ]f :cnewer<CR>
 
+nnoremap <silent> [l :lprevious<CR>
+nnoremap <silent> ]l :lnext<CR>
+nnoremap <silent> [l :lfirst<CR>
+nnoremap <silent> ]l :llast<CR>
+nnoremap <silent> [<C-L> :lpfile<CR>
+nnoremap <silent> ]<C-L> :lnfile<CR>
+
 nnoremap <silent> [b :bprev<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
