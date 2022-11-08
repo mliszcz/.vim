@@ -51,7 +51,7 @@ set number
 set relativenumber
 set textwidth=0
 set colorcolumn=80
-set mouse-=a
+set mouse=
 set ruler
 set laststatus=2
 set title
@@ -328,9 +328,10 @@ require'nvim-treesitter.configs'.setup {
 local function lsp_on_attach(client, bufnr)
   -- Use LSP for omni completion. This must be done after the LSP server is
   -- attached to the buffer, otherwise v:lua.vim.lsp.omnifunc is not defined.
+  -- Even thoug this is done by default if omnifunc is not set (since v0.8),
+  -- we keep this option to overwrite the omnifunc (often very basic) set by 
+  -- ftplugins of many languages (e.g. ccomplete:Complete for C++).
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- Autoformat on save.
-  -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 end
 
 local lspconfig = require 'lspconfig'
