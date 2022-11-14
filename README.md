@@ -18,3 +18,11 @@ Configuration for Vim and Neovim.
    ```
    wget -P plugin https://raw.githubusercontent.com/junegunn/fzf/master/plugin/fzf.vim
    ```
+
+## Updating
+
+To update all submodules to the latest versions, run:
+
+```bash
+git submodule update --recursive --remote
+```
