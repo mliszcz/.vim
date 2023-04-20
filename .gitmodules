@@ -34,3 +34,6 @@
 [submodule "pack/plugins/opt/nvim-treesitter/playground"]
 	path = pack/plugins/opt/nvim-treesitter/playground
 	url = https://github.com/nvim-treesitter/playground
+[submodule "pack/plugins/opt/chentoast/marks.nvim"]
+	path = pack/plugins/opt/chentoast/marks.nvim
+	url = https://github.com/chentoast/marks.nvim

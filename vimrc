@@ -19,6 +19,7 @@ if has('packages')
 endif
 
 if has('nvim-0.7')
+  packadd! chentoast/marks.nvim
   packadd! lewis6991/gitsigns.nvim
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
@@ -251,6 +252,13 @@ nnoremap <silent> <leader>js :lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
 
+nmap <silent> [w <Plug>(Marks-prev)
+nmap <silent> ]w <Plug>(Marks-next)
+nmap <silent> [e <Plug>(Marks-prev-bookmark0)
+nmap <silent> ]e <Plug>(Marks-next-bookmark0)
+nmap <silent> m; <Plug>(Marks-toggle)
+nmap <silent> m/ <Plug>(Marks-toggle-bookmark0)
+
 " Wrapper for ripgrep. Bang (Rg!) will make it use just half of the screen.
 " https://github.com/junegunn/fzf.vim#example-rg-command-with-preview-window
 command! -bang -nargs=* Rg call fzf#vim#grep(
@@ -264,6 +272,10 @@ if has('nvim-0.7')
 lua << EOF
 
 require('gitsigns').setup()
+
+require'marks'.setup {
+  default_mappings = false,
+}
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
