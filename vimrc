@@ -15,7 +15,7 @@ if has('packages')
   packadd! gustafj/vim-ttcn
   packadd! junegunn/fzf.vim
   packadd! tomtom/tcomment_vim
-  packadd! sheerun/vim-polyglot
+  " packadd! sheerun/vim-polyglot
 endif
 
 if has('nvim-0.7')
@@ -29,6 +29,8 @@ if has('nvim-0.7')
   packadd! nvim-treesitter/playground
   packadd! p00f/nvim-ts-rainbow
 endif
+
+let g:polyglot_disabled = ['autoindent', 'sensible', 'ftdetect']
 
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
 let g:fzf_preview_window = [] " Disable preview for commands like :Files.
@@ -237,6 +239,7 @@ nnoremap <silent> ]c :Gitsigns next_hunk<CR>
 nnoremap <silent> [c :Gitsigns prev_hunk<CR>
 
 nnoremap <silent> <leader>jc :Gitsigns preview_hunk<CR>
+nnoremap <silent> <leader>c :Gitsigns setqflist "all"<CR>
 
 " Mappings for the builtin LSP client. It is ok to not have them configured in
 " Lua inside the on_attach callback because the commands are resolved when the
@@ -359,6 +362,10 @@ if not configs.ntt then
     }
   }
 end
+
+lspconfig.lua_ls.setup{
+  on_attach = lsp_on_attach
+}
 
 lspconfig.pyright.setup{
   on_attach = lsp_on_attach
