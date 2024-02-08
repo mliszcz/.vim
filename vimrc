@@ -26,7 +26,6 @@ if has('nvim-0.7')
   packadd! numToStr/Comment.nvim
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-textobjects
-  packadd! nvim-treesitter/playground
   packadd! p00f/nvim-ts-rainbow
 endif
 
