@@ -4,9 +4,6 @@
 [submodule "pack/plugins/opt/junegunn/fzf.vim"]
 	path = pack/plugins/opt/junegunn/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "pack/plugins/opt/tomtom/tcomment_vim"]
-	path = pack/plugins/opt/tomtom/tcomment_vim
-	url = https://github.com/tomtom/tcomment_vim
 [submodule "pack/plugins/opt/sheerun/vim-polyglot"]
 	path = pack/plugins/opt/sheerun/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
@@ -37,3 +34,6 @@
 [submodule "pack/plugins/opt/chentoast/marks.nvim"]
 	path = pack/plugins/opt/chentoast/marks.nvim
 	url = https://github.com/chentoast/marks.nvim
+[submodule "pack/plugins/opt/numToStr/Comment.nvim"]
+	path = pack/plugins/opt/numToStr/Comment.nvim
+	url = https://github.com/numToStr/Comment.nvim

@@ -14,7 +14,6 @@ if has('packages')
   execute 'set packpath^=' . s:vimdir
   packadd! gustafj/vim-ttcn
   packadd! junegunn/fzf.vim
-  packadd! tomtom/tcomment_vim
   " packadd! sheerun/vim-polyglot
 endif
 
@@ -24,6 +23,7 @@ if has('nvim-0.7')
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
   packadd! neovim/nvim-lspconfig
+  packadd! numToStr/Comment.nvim
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-textobjects
   packadd! nvim-treesitter/playground
@@ -179,7 +179,7 @@ autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
 " autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
 
 " The TTCN plugin does not recognize the .ttcn3 extension.
-autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn
+autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn commentstring=/*%s*/
 
 " A .tpp file with template definitions.
 autocmd BufRead,BufNewFile *.tpp set filetype=cpp
@@ -283,6 +283,8 @@ require('gitsigns').setup()
 require'marks'.setup {
   default_mappings = false,
 }
+
+require('Comment').setup()
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
