@@ -351,6 +351,10 @@ local function lsp_on_attach(client, bufnr)
   -- we keep this option to overwrite the omnifunc (often very basic) set by 
   -- ftplugins of many languages (e.g. ccomplete:Complete for C++).
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  if client.server_capabilities.inlayHintProvider then
+      vim.lsp.buf.inlay_hint(bufnr, true)
+  end
 end
 
 local lspconfig = require 'lspconfig'
