@@ -262,6 +262,10 @@ nmap <silent> ]e <Plug>(Marks-next-bookmark0)
 nmap <silent> m; <Plug>(Marks-toggle)
 nmap <silent> m/ <Plug>(Marks-toggle-bookmark0)
 
+" Rename with feedback.
+nmap <leader>r :%s/<c-r>=expand("<cword>")<cr>/<c-r>=expand("<cword>")<cr>
+nmap <leader>R :%s/<c-r>=expand("<cWORD>")<cr>/<c-r>=expand("<cWORD>")<cr>
+
 " Wrapper for ripgrep. Bang (Rg!) will make it use just half of the screen.
 " https://github.com/junegunn/fzf.vim#example-rg-command-with-preview-window
 command! -bang -nargs=* Rg call fzf#vim#grep(
