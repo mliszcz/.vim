@@ -367,6 +367,16 @@ if not configs.ntt then
   }
 end
 
+if not configs.mtcd then
+  configs.mtcd = {
+    default_config = {
+      cmd = {'mtcd'},
+      filetypes = {'ttcn3', 'ttcn'},
+      root_dir = lspconfig.util.root_pattern 'package.yml',
+    }
+  }
+end
+
 lspconfig.lua_ls.setup{
   on_attach = lsp_on_attach
 }
@@ -375,8 +385,27 @@ lspconfig.pyright.setup{
   on_attach = lsp_on_attach
 }
 
-lspconfig.ntt.setup{
-  on_attach = lsp_on_attach
+-- lspconfig.ntt.setup{
+--   on_attach = lsp_on_attach
+-- }
+
+lspconfig.mtcd.setup{
+  on_attach = function(client, bufnr)
+    lsp_on_attach(client, bufnr)
+    -- mtcd is using a custom method for initial configuration.
+    client.notify("$/configuration", {
+      inlayHintConfiguration = {
+        arrayExpressions = true,
+        arrayIndexes = true,
+        componentVariableUsage = true,
+        defaultValues = true,
+        implicitlyDefaultedParameters = true,
+        modifiedTemplateDefaultValues = true,
+        parameterDirection = true,
+        unnamedParameter = true,
+      }
+    })
+  end,
 }
 
 lspconfig.gopls.setup{
