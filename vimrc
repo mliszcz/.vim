@@ -346,13 +346,6 @@ require'nvim-treesitter.configs'.setup {
 -- See below link for more details regarding LSP configuration:
 -- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 local function lsp_on_attach(client, bufnr)
-  -- Use LSP for omni completion. This must be done after the LSP server is
-  -- attached to the buffer, otherwise v:lua.vim.lsp.omnifunc is not defined.
-  -- Even thoug this is done by default if omnifunc is not set (since v0.8),
-  -- we keep this option to overwrite the omnifunc (often very basic) set by 
-  -- ftplugins of many languages (e.g. ccomplete:Complete for C++).
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   if client.server_capabilities.inlayHintProvider then
       vim.lsp.buf.inlay_hint(bufnr, true)
   end
