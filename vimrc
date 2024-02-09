@@ -19,6 +19,7 @@ endif
 
 if has('nvim-0.7')
   packadd! chentoast/marks.nvim
+  packadd! HiPhish/rainbow-delimiters.nvim
   packadd! lewis6991/gitsigns.nvim
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
@@ -26,7 +27,6 @@ if has('nvim-0.7')
   packadd! numToStr/Comment.nvim
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-textobjects
-  packadd! p00f/nvim-ts-rainbow
 endif
 
 let g:polyglot_disabled = ['autoindent', 'sensible', 'ftdetect']
@@ -293,11 +293,6 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = {
     enable = true,
-  },
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
   },
   textobjects = {
     select = {
