@@ -1,5 +1,6 @@
 " This configuration is intended to be used with recent Neovim versions,
 " but basic support is provided also for Vim starting from 7.4 version.
+let s:min_nvim_version = 'nvim-0.9.5'
 
 " https://stackoverflow.com/questions/4976776/how-to-get-path-to-the-current-vimscript-being-executed
 let s:vimdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -17,7 +18,7 @@ if has('packages')
   " packadd! sheerun/vim-polyglot
 endif
 
-if has('nvim-0.7')
+if has(s:min_nvim_version)
   packadd! chentoast/marks.nvim
   packadd! HiPhish/rainbow-delimiters.nvim
   packadd! lewis6991/gitsigns.nvim
@@ -117,7 +118,7 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-if has('nvim-0.7')
+if has(s:min_nvim_version)
 lua << EOF
   local ts = require'nvim-treesitter'
   local options = {
@@ -184,7 +185,7 @@ autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn commentstring=/*%s*/
 autocmd BufRead,BufNewFile *.tpp set filetype=cpp
 
 " Colorscheme must be set after the ColorScheme autocommands are defined.
-if has('nvim-0.7')
+if has(s:min_nvim_version)
   let g:onedark_config = {'style': 'darker'}
   colorscheme onedark
 endif
@@ -274,7 +275,7 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
   \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>1)
 
-if has('nvim-0.7')
+if has(s:min_nvim_version)
 lua << EOF
 
 require('gitsigns').setup()
