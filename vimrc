@@ -216,8 +216,12 @@ nnoremap <silent> ]B :brewind<CR>
 nnoremap <silent> ]c :Gitsigns next_hunk<CR>
 nnoremap <silent> [c :Gitsigns prev_hunk<CR>
 
-nnoremap <silent> <leader>jc :Gitsigns preview_hunk<CR>
 nnoremap <silent> <leader>c :Gitsigns setqflist "all"<CR>
+
+nnoremap <silent> <leader>hs :Gitsigns stage_hunk<CR>
+nnoremap <silent> <leader>hr :Gitsigns reset_hunk<CR>
+nnoremap <silent> <leader>hu :Gitsigns undo_stage_hunk<CR>
+nnoremap <silent> <leader>hc :Gitsigns preview_hunk<CR>
 
 " Mappings for the builtin LSP client. It is ok to not have them configured in
 " Lua inside the on_attach callback because the commands are resolved when the
@@ -261,7 +265,9 @@ hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
 if has(s:min_nvim_version)
 lua << EOF
 
-require('gitsigns').setup()
+require('gitsigns').setup {
+  _signs_staged_enable = true
+}
 
 require'marks'.setup {
   default_mappings = false,
