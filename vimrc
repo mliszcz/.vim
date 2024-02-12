@@ -27,6 +27,7 @@ if has(s:min_nvim_version)
   packadd! neovim/nvim-lspconfig
   packadd! numToStr/Comment.nvim
   packadd! nvim-treesitter/nvim-treesitter
+  packadd! nvim-treesitter/nvim-treesitter-context
   packadd! nvim-treesitter/nvim-treesitter-textobjects
 endif
 
@@ -116,29 +117,6 @@ endif
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-
-if has(s:min_nvim_version)
-lua << EOF
-  local ts = require'nvim-treesitter'
-  local options = {
-    indicator_size = 50,
-    type_patterns = { 'class', 'function', 'method' },
-  }
-  function _G.SourceCodeLocation()
-    return ts.statusline(options)
-  end
-EOF
-
-  " The status line is similar to the default one but includes source code
-  " location information. See also: https://unix.stackexchange.com/a/518439.
-  set statusline=
-  set statusline+=%f\                             " Path to the file.
-  set statusline+=%h%w%m%r\                       " [Help][Preview][+/-][RO]
-  set statusline+=%=                              " Center alignment.
-  set statusline+=%{v:lua.SourceCodeLocation()}\  " Source code location.
-  set statusline+=%=                              " Right alignment
-  set statusline+=%-14.(%l,%c%V%)\ %P             " Cursor position.
 endif
 
 " Remove any backgrounds. EndOfBuffer is for the initial welcome window.
@@ -275,6 +253,11 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
   \         : fzf#vim#with_preview('right:50%', '?'),
   \ <bang>1)
 
+" Display a separator line between the context and the rest of the file.
+" This saves us one screen line by not needing to use the 'separator' option.
+hi TreesitterContextBottom gui=underline guisp=Grey
+hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
+
 if has(s:min_nvim_version)
 lua << EOF
 
@@ -285,6 +268,8 @@ require'marks'.setup {
 }
 
 require('Comment').setup()
+
+require('treesitter-context').setup()
 
 require'nvim-treesitter.configs'.setup {
   highlight = {

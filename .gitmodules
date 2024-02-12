@@ -34,3 +34,6 @@
 [submodule "pack/plugins/opt/HiPhish/rainbow-delimiters.nvim"]
 	path = pack/plugins/opt/HiPhish/rainbow-delimiters.nvim
 	url = https://gitlab.com/HiPhish/rainbow-delimiters.nvim
+[submodule "pack/plugins/opt/nvim-treesitter/nvim-treesitter-context"]
+	path = pack/plugins/opt/nvim-treesitter/nvim-treesitter-context
+	url = https://github.com/nvim-treesitter/nvim-treesitter-context
