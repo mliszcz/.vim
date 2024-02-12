@@ -4,9 +4,6 @@
 [submodule "pack/plugins/opt/junegunn/fzf.vim"]
 	path = pack/plugins/opt/junegunn/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "pack/plugins/opt/sheerun/vim-polyglot"]
-	path = pack/plugins/opt/sheerun/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot
 [submodule "pack/plugins/opt/lukas-reineke/indent-blankline.nvim"]
 	path = pack/plugins/opt/lukas-reineke/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim
@@ -37,3 +34,6 @@
 [submodule "pack/plugins/opt/nvim-treesitter/nvim-treesitter-context"]
 	path = pack/plugins/opt/nvim-treesitter/nvim-treesitter-context
 	url = https://github.com/nvim-treesitter/nvim-treesitter-context
+[submodule "pack/plugins/opt/MTDL9/vim-log-highlighting"]
+	path = pack/plugins/opt/MTDL9/vim-log-highlighting
+	url = https://github.com/MTDL9/vim-log-highlighting

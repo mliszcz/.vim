@@ -15,7 +15,7 @@ if has('packages')
   execute 'set packpath^=' . s:vimdir
   packadd! gustafj/vim-ttcn
   packadd! junegunn/fzf.vim
-  " packadd! sheerun/vim-polyglot
+  packadd! MTDL9/vim-log-highlighting
 endif
 
 if has(s:min_nvim_version)
@@ -30,8 +30,6 @@ if has(s:min_nvim_version)
   packadd! nvim-treesitter/nvim-treesitter-context
   packadd! nvim-treesitter/nvim-treesitter-textobjects
 endif
-
-let g:polyglot_disabled = ['autoindent', 'sensible', 'ftdetect']
 
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
 let g:fzf_preview_window = [] " Disable preview for commands like :Files.
