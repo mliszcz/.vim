@@ -412,5 +412,9 @@ lspconfig.clangd.setup{
     '--header-insertion-decorators',
   }
 }
+
+-- Disable LSP logging. This file grows very quickly.
+vim.lsp.set_log_level('OFF')
+require('vim.lsp.log').set_format_func(vim.inspect)
 EOF
 endif
