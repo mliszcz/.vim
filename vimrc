@@ -232,9 +232,6 @@ nnoremap <silent> <leader>ja :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>jf :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>js :lua vim.lsp.buf.signature_help()<CR>
 
-nnoremap <silent> [d :lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> ]d :lua vim.diagnostic.goto_next()<CR>
-
 nmap <silent> [w <Plug>(Marks-prev)
 nmap <silent> ]w <Plug>(Marks-next)
 nmap <silent> [e <Plug>(Marks-prev-bookmark0)
