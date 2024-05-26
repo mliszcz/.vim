@@ -24,5 +24,5 @@ Configuration for Vim and Neovim.
 To update all submodules to the latest versions, run:
 
 ```bash
-git submodule update --recursive --remote
+git submodule update --init --recursive --recommend-shallow
 ```
