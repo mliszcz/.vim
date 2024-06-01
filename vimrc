@@ -132,10 +132,12 @@ autocmd ColorScheme onedark highlight IndentBlanklineSpaceChar guifg=#404040
 " We do not define a new highlight group but use the one from the virtual
 " text instead. See also :h diagnostic-signs, diagnostic-highlights, and
 " https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization.
-sign define DiagnosticSignError text= texthl= linehl= numhl=DiagnosticVirtualTextError
-sign define DiagnosticSignWarn  text= texthl= linehl= numhl=DiagnosticVirtualTextWarn
-sign define DiagnosticSignInfo  text= texthl= linehl= numhl=DiagnosticVirtualTextInfo
-sign define DiagnosticSignHint  text= texthl= linehl= numhl=DiagnosticVirtualTextHint
+if has(s:min_nvim_version)
+  sign define DiagnosticSignError text= texthl= linehl= numhl=DiagnosticVirtualTextError
+  sign define DiagnosticSignWarn  text= texthl= linehl= numhl=DiagnosticVirtualTextWarn
+  sign define DiagnosticSignInfo  text= texthl= linehl= numhl=DiagnosticVirtualTextInfo
+  sign define DiagnosticSignHint  text= texthl= linehl= numhl=DiagnosticVirtualTextHint
+endif
 
 " Automatically open quick fix window after it is populated (:grep only).
 autocmd QuickFixCmdPost grep copen
