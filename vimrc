@@ -234,6 +234,8 @@ nnoremap <silent> <leader>ja :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>jf :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>js :lua vim.lsp.buf.signature_help()<CR>
 
+nnoremap <silent> <leader>i :lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>
+
 nmap <silent> [w <Plug>(Marks-prev)
 nmap <silent> ]w <Plug>(Marks-next)
 nmap <silent> [e <Plug>(Marks-prev-bookmark0)
@@ -352,9 +354,7 @@ require'nvim-treesitter.configs'.setup {
 -- See below link for more details regarding LSP configuration:
 -- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 local function lsp_on_attach(client, bufnr)
-  if client.server_capabilities.inlayHintProvider then
-      vim.lsp.buf.inlay_hint(bufnr, true)
-  end
+  -- Do nothing for now.
 end
 
 local lspconfig = require 'lspconfig'
