@@ -36,7 +36,6 @@ let g:fzf_preview_window = [] " Disable preview for commands like :Files.
 
 " The syntax on/enable option is not necessary when using Tree-sitter but
 " without it being enabled the ColorScheme autocommands are not triggered.
-syntax on
 
 " Filetype detection is needed to get syntax highlighting for files opened
 " after startup (with :e or :Files). Otherwise it only works for the first
@@ -45,7 +44,10 @@ syntax on
 " Plugin and indent files are ignored when using Tree-sitter but otherwise
 " plugin file is needed to load the syntax highlighting and indent file is
 " needed to have language-specific indentation rules.
-filetype plugin indent on
+if !has(s:min_nvim_version)
+  syntax on
+  filetype plugin indent on
+endif
 
 au BufRead,BufNewFile *.k3.txt,*.err,*.out set filetype=log
 
