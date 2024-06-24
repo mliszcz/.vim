@@ -24,7 +24,6 @@ if has(s:min_nvim_version)
   packadd! lewis6991/gitsigns.nvim
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
-  packadd! neovim/nvim-lspconfig
   packadd! numToStr/Comment.nvim
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-context
@@ -357,89 +356,6 @@ require'nvim-treesitter.configs'.setup {
       },
     },
   },
-}
-
--- See below link for more details regarding LSP configuration:
--- https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
-local function lsp_on_attach(client, bufnr)
-  -- Do nothing for now.
-end
-
-local lspconfig = require 'lspconfig'
-local configs = require 'lspconfig.configs'
-
--- Add custom server configuration for ntt: https://github.com/nokia/ntt.
-if not configs.ntt then
-  configs.ntt = {
-    default_config = {
-      cmd = {'ntt', 'langserver'},
-      filetypes = {'ttcn3', 'ttcn'},
-      root_dir = lspconfig.util.root_pattern 'package.yml',
-    }
-  }
-end
-
-if not configs.mtcd then
-  configs.mtcd = {
-    default_config = {
-      cmd = {'mtcd'},
-      filetypes = {'ttcn3', 'ttcn'},
-      root_dir = lspconfig.util.root_pattern 'package.yml',
-    }
-  }
-end
-
-lspconfig.lua_ls.setup{
-  on_attach = lsp_on_attach
-}
-
-lspconfig.pyright.setup{
-  on_attach = lsp_on_attach
-}
-
--- lspconfig.ntt.setup{
---   on_attach = lsp_on_attach
--- }
-
-lspconfig.mtcd.setup{
-  on_attach = function(client, bufnr)
-    lsp_on_attach(client, bufnr)
-    -- mtcd is using a custom method for initial configuration.
-    client.notify("$/configuration", {
-      inlayHintConfiguration = {
-        arrayExpressions = true,
-        arrayIndexes = true,
-        componentVariableUsage = true,
-        defaultValues = true,
-        implicitlyDefaultedParameters = true,
-        modifiedTemplateDefaultValues = true,
-        parameterDirection = true,
-        unnamedParameter = true,
-      }
-    })
-  end,
-}
-
-lspconfig.gopls.setup{
-  on_attach = lsp_on_attach
-}
-
-lspconfig.clangd.setup{
-  on_attach = lsp_on_attach,
-  -- Use a custom TMPDIR for storing (potentially large) precompiled preambles.
-  cmd_env = vim.env.CLANGD_TMPDIR and {
-    TMPDIR = vim.env.CLANGD_TMPDIR
-  },
-  cmd = {'clangd',
-    -- Use a match-all query driver to support compilers in no-standard paths.
-    -- https://clangd.llvm.org/troubleshooting.html#cant-find-standard-library-headers-map-stdioh-etc
-    -- https://github.com/clangd/clangd/issues/539
-    '--query-driver=/**/*',
-    '--background-index',
-    '--clang-tidy',
-    '--header-insertion=never',
-    '--header-insertion-decorators',
-  }
 }
 
 -- Disable LSP logging. This file grows very quickly.
