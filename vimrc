@@ -228,13 +228,19 @@ nnoremap <silent> <leader>hc :Gitsigns preview_hunk<CR>
 " Mappings for the builtin LSP client. It is ok to not have them configured in
 " Lua inside the on_attach callback because the commands are resolved when the
 " mapping is executed.
-nnoremap <silent> <leader>jD :lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <leader>jd :lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <leader>ji :lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <leader>jr :lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>ja :lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader>jf :lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>js :lua vim.lsp.buf.signature_help()<CR>
+
+" These mappings should be default starting with 0.11.
+" See: https://github.com/neovim/neovim/pull/28650
+nnoremap <silent> grn :lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> gra :lua vim.lsp.buf.code_action()<CR>
+xnoremap <silent> gra :lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> grr :lua vim.lsp.buf.references()<CR>
+inoremap <silent> <C-S> <C-O>:lua vim.lsp.buf.signature_help()<CR>
+
+" These are TBD according to the recent comments in #28650.
+nnoremap <silent> grd :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> grD :lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gri :lua vim.lsp.buf.implementation()<CR>
 
 nnoremap <silent> <leader>i :lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>
 
