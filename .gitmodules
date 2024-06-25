@@ -22,9 +22,6 @@
 [submodule "pack/plugins/opt/chentoast/marks.nvim"]
 	path = pack/plugins/opt/chentoast/marks.nvim
 	url = https://github.com/chentoast/marks.nvim
-[submodule "pack/plugins/opt/numToStr/Comment.nvim"]
-	path = pack/plugins/opt/numToStr/Comment.nvim
-	url = https://github.com/numToStr/Comment.nvim
 [submodule "pack/plugins/opt/HiPhish/rainbow-delimiters.nvim"]
 	path = pack/plugins/opt/HiPhish/rainbow-delimiters.nvim
 	url = https://gitlab.com/HiPhish/rainbow-delimiters.nvim

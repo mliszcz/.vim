@@ -24,7 +24,6 @@ if has(s:min_nvim_version)
   packadd! lewis6991/gitsigns.nvim
   packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
-  packadd! numToStr/Comment.nvim
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-context
   packadd! nvim-treesitter/nvim-treesitter-textobjects
@@ -158,7 +157,10 @@ autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
 " autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
 
 " The TTCN plugin does not recognize the .ttcn3 extension.
-autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn commentstring=/*%s*/
+autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn commentstring=//\ %s
+
+" Prefer // over /**/ for C++. This will be the default starting with 0.11.
+autocmd Filetype cpp setlocal commentstring=//\ %s
 
 " A .tpp file with template definitions.
 autocmd BufRead,BufNewFile *.tpp set filetype=cpp
@@ -300,8 +302,6 @@ require('gitsigns').setup {
 require'marks'.setup {
   default_mappings = false,
 }
-
-require('Comment').setup()
 
 require('treesitter-context').setup()
 
