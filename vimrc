@@ -125,8 +125,7 @@ autocmd ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE
 " Make indentation lines and whitespaces darker.
 autocmd ColorScheme onedark highlight NonText guifg=#404040
 autocmd ColorScheme onedark highlight Whitespace guifg=#404040
-autocmd ColorScheme onedark highlight IndentBlanklineChar guifg=#404040
-autocmd ColorScheme onedark highlight IndentBlanklineSpaceChar guifg=#404040
+autocmd ColorScheme onedark highlight IblWhitespace guifg=#404040
 
 " Remove the diagnostic sign (text) and highlight the line number instead.
 " We do not define a new highlight group but use the one from the virtual
@@ -304,6 +303,17 @@ require'marks'.setup {
 }
 
 require('treesitter-context').setup()
+
+require('ibl').setup {
+  indent = {
+    char = '│'
+  },
+  scope = {
+    enabled = true,
+    show_start = false,
+    show_end = false
+  },
+}
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
