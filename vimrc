@@ -1,6 +1,6 @@
 " This configuration is intended to be used with recent Neovim versions,
 " but basic support is provided also for Vim starting from 7.4 version.
-let s:min_nvim_version = 'nvim-0.9.5'
+let s:min_nvim_version = 'nvim-0.10.0'
 
 " https://stackoverflow.com/questions/4976776/how-to-get-path-to-the-current-vimscript-being-executed
 let s:vimdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
