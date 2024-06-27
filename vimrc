@@ -267,28 +267,6 @@ command! -bang -nargs=* RG call fzf#vim#grep2(s:rg_cmd, <q-args>, fzf#vim#with_p
 hi TreesitterContextBottom gui=underline guisp=Grey
 hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
 
-" Function for opening a persistent terminal.
-let g:Terminals = {}
-function! OpenTerminal(name)
-  if has_key(g:Terminals, a:name)
-    execute 'buffer ' . g:Terminals[a:name]
-  else
-    edit term://fish
-    let g:Terminals[a:name] = bufnr('%')
-    let b:TerminalName = a:name
-    autocmd BufDelete <buffer> unlet g:Terminals[b:TerminalName]
-    " Map <space> instead of <leader> for switching back because <space>
-    " is not a <leader> in the terminal mode (for now this is intentional).
-    tnoremap <buffer> <space><CR> <C-\><C-n><C-6>
-    tnoremap <buffer> <space><Esc> <C-\><C-n>
-    setlocal nonumber
-    setlocal norelativenumber
-  endif
-  startinsert
-endfunction
-
-nnoremap <silent> <leader><CR> :call OpenTerminal('Scratch')<CR>
-
 if has(s:min_nvim_version)
 lua << EOF
 
