@@ -29,9 +29,6 @@ if has(s:min_nvim_version)
   packadd! nvim-treesitter/nvim-treesitter-textobjects
 endif
 
-let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
-let g:fzf_preview_window = [] " Disable preview for commands like :Files.
-
 " The syntax on/enable option is not necessary when using Tree-sitter but
 " without it being enabled the ColorScheme autocommands are not triggered.
 
@@ -255,14 +252,15 @@ nmap <silent> m/ <Plug>(Marks-toggle-bookmark0)
 nmap <leader>r :%s/<c-r>=expand("<cword>")<cr>/<c-r>=expand("<cword>")<cr>
 nmap <leader>R :%s/<c-r>=expand("<cWORD>")<cr>/<c-r>=expand("<cWORD>")<cr>
 
-" Wrapper for ripgrep. Bang (Rg!) will make it use just half of the screen.
-" https://github.com/junegunn/fzf.vim#example-rg-command-with-preview-window
-command! -bang -nargs=* Rg call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>),
-  \ 1,
-  \ <bang>1 ? fzf#vim#with_preview('up:60%')
-  \         : fzf#vim#with_preview('right:50%', '?'),
-  \ <bang>1)
+let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
+let g:fzf_preview_window = [] " Disable preview for commands like :Files.
+
+" Commands for ripgrep, copied from fzf.vim with the following changes:
+" * bang behavior is inverted, i.e. omitting it will use the whole screen,
+" * preview is hardcoded to override the global configuration.
+let s:rg_cmd = "rg --column --line-number --no-heading --color=always --smart-case -- "
+command! -bang -nargs=* Rg call fzf#vim#grep(s:rg_cmd . fzf#shellescape(<q-args>), fzf#vim#with_preview('up:60%'), <bang>1)
+command! -bang -nargs=* RG call fzf#vim#grep2(s:rg_cmd, <q-args>, fzf#vim#with_preview('up:60%'), <bang>1)
 
 " Display a separator line between the context and the rest of the file.
 " This saves us one screen line by not needing to use the 'separator' option.
