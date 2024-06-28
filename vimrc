@@ -167,53 +167,25 @@ if has(s:min_nvim_version)
   colorscheme onedark
 endif
 
-" Fix true colors (see :h xterm-true-color),
-" https://github.com/vim/vim/issues/993
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Right> <nop>
-noremap <Left> <nop>
-
-inoremap <Up> <nop>
-inoremap <Down> <nop>
-inoremap <Right> <nop>
-inoremap <Left> <nop>
-
 map <space> <leader>
 
-" Bang makes window to use 100% height. Note: these commands are from fzf-vim.
-noremap <leader>p :Files!<CR>
-noremap <leader>o :Buffers!<CR>
+nnoremap <leader>p :Files!<CR>
+nnoremap <leader>o :Buffers!<CR>
 
 noremap <leader>g :silent execute "grep! <cword>"<CR>
 
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
-nnoremap <silent> [Q :cfirst<CR>
-nnoremap <silent> ]Q :clast<CR>
-nnoremap <silent> [<C-Q> :cpfile<CR>
-nnoremap <silent> ]<C-Q> :cnfile<CR>
-
-noremap <silent> [f :colder<CR>
-noremap <silent> ]f :cnewer<CR>
-
-nnoremap <silent> [l :lprevious<CR>
-nnoremap <silent> ]l :lnext<CR>
-nnoremap <silent> [l :lfirst<CR>
-nnoremap <silent> ]l :llast<CR>
-nnoremap <silent> [<C-L> :lpfile<CR>
-nnoremap <silent> ]<C-L> :lnfile<CR>
-
-nnoremap <silent> [b :bprev<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :brewind<CR>
 
 nnoremap <silent> ]c :Gitsigns next_hunk<CR>
 nnoremap <silent> [c :Gitsigns prev_hunk<CR>
+
+nnoremap <silent> [w <Plug>(Marks-prev)
+nnoremap <silent> ]w <Plug>(Marks-next)
+nnoremap <silent> [e <Plug>(Marks-prev-bookmark0)
+nnoremap <silent> ]e <Plug>(Marks-next-bookmark0)
+nnoremap <silent> m; <Plug>(Marks-toggle)
+nnoremap <silent> m/ <Plug>(Marks-toggle-bookmark0)
 
 nnoremap <silent> <leader>c :Gitsigns setqflist "all"<CR>
 
@@ -221,10 +193,6 @@ nnoremap <silent> <leader>hs :Gitsigns stage_hunk<CR>
 nnoremap <silent> <leader>hr :Gitsigns reset_hunk<CR>
 nnoremap <silent> <leader>hu :Gitsigns undo_stage_hunk<CR>
 nnoremap <silent> <leader>hc :Gitsigns preview_hunk<CR>
-
-" Mappings for the builtin LSP client. It is ok to not have them configured in
-" Lua inside the on_attach callback because the commands are resolved when the
-" mapping is executed.
 
 " These mappings should be default starting with 0.11.
 " See: https://github.com/neovim/neovim/pull/28650
@@ -239,18 +207,9 @@ nnoremap <silent> grd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> grD :lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gri :lua vim.lsp.buf.implementation()<CR>
 
-nnoremap <silent> <leader>i :lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>
-
-nmap <silent> [w <Plug>(Marks-prev)
-nmap <silent> ]w <Plug>(Marks-next)
-nmap <silent> [e <Plug>(Marks-prev-bookmark0)
-nmap <silent> ]e <Plug>(Marks-next-bookmark0)
-nmap <silent> m; <Plug>(Marks-toggle)
-nmap <silent> m/ <Plug>(Marks-toggle-bookmark0)
-
 " Rename with feedback.
-nmap <leader>r :%s/<c-r>=expand("<cword>")<cr>/<c-r>=expand("<cword>")<cr>
-nmap <leader>R :%s/<c-r>=expand("<cWORD>")<cr>/<c-r>=expand("<cWORD>")<cr>
+nnoremap <leader>r :%s/<c-r>=expand("<cword>")<cr>/<c-r>=expand("<cword>")<cr>
+nnoremap <leader>R :%s/<c-r>=expand("<cWORD>")<cr>/<c-r>=expand("<cWORD>")<cr>
 
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
 let g:fzf_preview_window = [] " Disable preview for commands like :Files.
