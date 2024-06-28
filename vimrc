@@ -222,18 +222,17 @@ if has(s:min_nvim_version)
   sign define DiagnosticSignInfo  text= texthl= linehl= numhl=DiagnosticVirtualTextInfo
   sign define DiagnosticSignHint  text= texthl= linehl= numhl=DiagnosticVirtualTextHint
 endif
+
 if has(s:min_nvim_version)
 lua << EOF
 
-require('gitsigns').setup {
-  _signs_staged_enable = true
-}
-
-require'marks'.setup {
-  default_mappings = false,
-}
+require('gitsigns').setup()
 
 require('treesitter-context').setup()
+
+require('marks').setup {
+  default_mappings = false,
+}
 
 require('ibl').setup {
   indent = {
@@ -246,7 +245,7 @@ require('ibl').setup {
   },
 }
 
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
     -- Do not run `:h syntax` for files handled by Tree-sitter.
