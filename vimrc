@@ -44,8 +44,6 @@ if !has(s:min_nvim_version)
   filetype plugin indent on
 endif
 
-au BufRead,BufNewFile *.k3.txt,*.err,*.out set filetype=log
-
 set number
 set relativenumber
 set textwidth=0
@@ -114,27 +112,6 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" Remove any backgrounds. EndOfBuffer is for the initial welcome window.
-autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-autocmd ColorScheme * highlight EndOfBuffer ctermbg=NONE guibg=NONE
-autocmd ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE
-
-" Make indentation lines and whitespaces darker.
-autocmd ColorScheme onedark highlight NonText guifg=#404040
-autocmd ColorScheme onedark highlight Whitespace guifg=#404040
-autocmd ColorScheme onedark highlight IblWhitespace guifg=#404040
-
-" Remove the diagnostic sign (text) and highlight the line number instead.
-" We do not define a new highlight group but use the one from the virtual
-" text instead. See also :h diagnostic-signs, diagnostic-highlights, and
-" https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization.
-if has(s:min_nvim_version)
-  sign define DiagnosticSignError text= texthl= linehl= numhl=DiagnosticVirtualTextError
-  sign define DiagnosticSignWarn  text= texthl= linehl= numhl=DiagnosticVirtualTextWarn
-  sign define DiagnosticSignInfo  text= texthl= linehl= numhl=DiagnosticVirtualTextInfo
-  sign define DiagnosticSignHint  text= texthl= linehl= numhl=DiagnosticVirtualTextHint
-endif
-
 " Automatically open quick fix window after it is populated (:grep only).
 autocmd QuickFixCmdPost grep copen
 
@@ -152,20 +129,12 @@ autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
 " Automatically remove trailing empty lines on save.
 " autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
 
-" The TTCN plugin does not recognize the .ttcn3 extension.
-autocmd BufRead,BufNewFile *.ttcn3 set filetype=ttcn commentstring=//\ %s
-
-" Prefer // over /**/ for C++. This will be the default starting with 0.11.
+" Prefer // over /**/. For C++ This will be the default starting with 0.11.
 autocmd Filetype cpp setlocal commentstring=//\ %s
+autocmd Filetype ttcn setlocal commentstring=//\ %s
 
-" A .tpp file with template definitions.
 autocmd BufRead,BufNewFile *.tpp set filetype=cpp
-
-" Colorscheme must be set after the ColorScheme autocommands are defined.
-if has(s:min_nvim_version)
-  let g:onedark_config = {'style': 'darker'}
-  colorscheme onedark
-endif
+autocmd BufRead,BufNewFile *.k3.txt,*.err,*.out set filetype=log
 
 map <space> <leader>
 
@@ -221,11 +190,37 @@ let s:rg_cmd = "rg --column --line-number --no-heading --color=always --smart-ca
 command! -bang -nargs=* Rg call fzf#vim#grep(s:rg_cmd . fzf#shellescape(<q-args>), fzf#vim#with_preview('up:60%'), <bang>1)
 command! -bang -nargs=* RG call fzf#vim#grep2(s:rg_cmd, <q-args>, fzf#vim#with_preview('up:60%'), <bang>1)
 
+" Remove any backgrounds. EndOfBuffer is for the initial welcome window.
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+autocmd ColorScheme * highlight EndOfBuffer ctermbg=NONE guibg=NONE
+autocmd ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE
+
+" Make indentation lines and whitespaces darker.
+autocmd ColorScheme onedark highlight NonText guifg=#404040
+autocmd ColorScheme onedark highlight Whitespace guifg=#404040
+autocmd ColorScheme onedark highlight IblWhitespace guifg=#404040
+
 " Display a separator line between the context and the rest of the file.
 " This saves us one screen line by not needing to use the 'separator' option.
-hi TreesitterContextBottom gui=underline guisp=Grey
-hi TreesitterContextLineNumberBottom gui=underline guisp=Grey
+autocmd ColorScheme onedark highlight TreesitterContextBottom gui=underline guisp=Grey
+autocmd ColorScheme onedark highlight TreesitterContextLineNumberBottom gui=underline guisp=Grey
 
+" Colorscheme must be set after the ColorScheme autocommands are defined.
+if has(s:min_nvim_version)
+  let g:onedark_config = {'style': 'darker'}
+  colorscheme onedark
+endif
+
+" Remove the diagnostic sign (text) and highlight the line number instead.
+" We do not define a new highlight group but use the one from the virtual
+" text instead. See also :h diagnostic-signs, diagnostic-highlights, and
+" https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization.
+if has(s:min_nvim_version)
+  sign define DiagnosticSignError text= texthl= linehl= numhl=DiagnosticVirtualTextError
+  sign define DiagnosticSignWarn  text= texthl= linehl= numhl=DiagnosticVirtualTextWarn
+  sign define DiagnosticSignInfo  text= texthl= linehl= numhl=DiagnosticVirtualTextInfo
+  sign define DiagnosticSignHint  text= texthl= linehl= numhl=DiagnosticVirtualTextHint
+endif
 if has(s:min_nvim_version)
 lua << EOF
 
