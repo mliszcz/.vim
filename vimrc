@@ -53,6 +53,7 @@ set ruler
 set laststatus=2
 set title
 set scrolloff=10
+set sidescrolloff=30
 set hidden
 set nowrap
 set autoindent
