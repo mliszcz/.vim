@@ -204,6 +204,8 @@ autocmd ColorScheme onedark highlight TreesitterContextLineNumberBottom gui=unde
 if has(s:min_nvim_version)
   let g:onedark_config = {'style': 'darker'}
   colorscheme onedark
+else
+  colorscheme darkblue
 endif
 
 " Remove the diagnostic sign (text) and highlight the line number instead.
