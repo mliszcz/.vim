@@ -93,17 +93,17 @@ endif
 set list
 if $TERM != 'linux'
   set listchars=eol:¬,tab:»\ ,trail:·
-  if has('patch-7.4-710')
+  if has('patch-7.4.710')
     set listchars+=space:·
   endif
 endif
 
-if has('patch-7.4-2201')
+if has('patch-7.4.2201')
   set signcolumn=yes
 endif
 
 set completeopt=menu,menuone
-if has('patch-7.4-775')
+if has('patch-7.4.775')
   set completeopt+=noinsert
 endif
 
