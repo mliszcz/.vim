@@ -19,7 +19,6 @@ if has('packages')
 endif
 
 if has(s:min_nvim_version)
-  packadd! chentoast/marks.nvim
   packadd! HiPhish/rainbow-delimiters.nvim
   packadd! lewis6991/gitsigns.nvim
   packadd! lukas-reineke/indent-blankline.nvim
@@ -150,13 +149,6 @@ nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> ]c :Gitsigns next_hunk<CR>
 nnoremap <silent> [c :Gitsigns prev_hunk<CR>
 
-nnoremap <silent> [w <Plug>(Marks-prev)
-nnoremap <silent> ]w <Plug>(Marks-next)
-nnoremap <silent> [e <Plug>(Marks-prev-bookmark0)
-nnoremap <silent> ]e <Plug>(Marks-next-bookmark0)
-nnoremap <silent> m; <Plug>(Marks-toggle)
-nnoremap <silent> m/ <Plug>(Marks-toggle-bookmark0)
-
 nnoremap <silent> <leader>c :Gitsigns setqflist "all"<CR>
 
 nnoremap <silent> <leader>hs :Gitsigns stage_hunk<CR>
@@ -226,13 +218,21 @@ endif
 if has(s:min_nvim_version)
 lua << EOF
 
+-- Place a sign when a mark is defined. This is deliberately not cleared when
+-- the mark is removed to simplify the implementation. The signs are assigned
+-- ids with a high offset value to avoid collisions.
+vim.keymap.set('n', 'm', function ()
+  local mark = vim.fn.getcharstr()
+  local name = 'mark' .. mark
+  local id = mark:byte() + 272145
+  vim.fn.sign_define(name, { text = mark, texthl = "Identifier" })
+  vim.fn.sign_place(id, '', name, vim.fn.bufname(), { lnum = vim.fn.line('.'), priority = 10 })
+  vim.cmd("normal! m" .. mark)
+end)
+
 require('gitsigns').setup()
 
 require('treesitter-context').setup()
-
-require('marks').setup {
-  default_mappings = false,
-}
 
 require('ibl').setup {
   indent = {
