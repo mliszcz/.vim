@@ -4,9 +4,6 @@
 [submodule "pack/plugins/opt/junegunn/fzf.vim"]
 	path = pack/plugins/opt/junegunn/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "pack/plugins/opt/lukas-reineke/indent-blankline.nvim"]
-	path = pack/plugins/opt/lukas-reineke/indent-blankline.nvim
-	url = https://github.com/lukas-reineke/indent-blankline.nvim
 [submodule "pack/plugins/opt/navarasu/onedark.nvim"]
 	path = pack/plugins/opt/navarasu/onedark.nvim
 	url = https://github.com/navarasu/onedark.nvim

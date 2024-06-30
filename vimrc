@@ -21,7 +21,6 @@ endif
 if has(s:min_nvim_version)
   packadd! HiPhish/rainbow-delimiters.nvim
   packadd! lewis6991/gitsigns.nvim
-  packadd! lukas-reineke/indent-blankline.nvim
   packadd! navarasu/onedark.nvim
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-context
@@ -96,6 +95,9 @@ if $TERM != 'linux'
   if has('patch-7.4.710')
     set listchars+=space:·
   endif
+  if has('patch-9.0.1938') || has('nvim-0.10.0')
+    set listchars+=leadmultispace:│···
+  endif
 endif
 
 if has('patch-7.4.2201')
@@ -119,6 +121,7 @@ autocmd QuickFixCmdPost grep copen
 autocmd Filetype
   \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown,purescript
   \ setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+  \ | if has('patch-9.0.1938') || has('nvim-0.10.0') | set listchars+=leadmultispace:│· | endif
 
 " Auto-wrap text on textwidth in markdown files.
 autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
@@ -191,7 +194,6 @@ autocmd ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE
 " Make indentation lines and whitespaces darker.
 autocmd ColorScheme onedark highlight NonText guifg=#404040
 autocmd ColorScheme onedark highlight Whitespace guifg=#404040
-autocmd ColorScheme onedark highlight IblWhitespace guifg=#404040
 
 " Display a separator line between the context and the rest of the file.
 " This saves us one screen line by not needing to use the 'separator' option.
@@ -233,17 +235,6 @@ end)
 require('gitsigns').setup()
 
 require('treesitter-context').setup()
-
-require('ibl').setup {
-  indent = {
-    char = '│'
-  },
-  scope = {
-    enabled = true,
-    show_start = false,
-    show_end = false
-  },
-}
 
 require('nvim-treesitter.configs').setup {
   highlight = {
