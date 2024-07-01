@@ -42,54 +42,60 @@ if !has(s:min_nvim_version)
   filetype plugin indent on
 endif
 
-set number
-set relativenumber
-set textwidth=0
-set colorcolumn=80
-set mouse=
-set ruler
-set laststatus=2
-set title
-set scrolloff=10
-set sidescrolloff=30
-set hidden
-set nowrap
 set autoindent
+set autoread
+set colorcolumn=80
+set conceallevel=0
 set copyindent
-set showmatch
-set ignorecase
-set smartcase
+set cursorline
+set expandtab
+set formatoptions-=c
+set formatoptions-=t
+set hidden
 set hlsearch
+set ignorecase
 set incsearch
-set undolevels=1000
+set laststatus=2
+set list
+set mouse=
 set nobackup
 set noswapfile
-set cursorline
-set autoread
-set whichwrap+=<,>,h,l,[,]
-set formatoptions-=t
-set formatoptions-=c
-set conceallevel=0
+set nowrap
+set number
+set relativenumber
+set ruler
+set scrolloff=10
+set shiftwidth=4
 set showcmd
+set showmatch
+set sidescrolloff=30
+set smartcase
+set smarttab
+set softtabstop=4
+set tabstop=4
+set textwidth=0
+set title
+set undolevels=1000
+set whichwrap+=<,>,h,l,[,]
 set wildmenu
 set wildmode=full
-set expandtab
-set smarttab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-
-if has('termguicolors')
-  set termguicolors
-endif
 
 if has('unnamedplus')
   set clipboard+=unnamedplus
 endif
 
+set completeopt=menu,menuone
+if has('patch-7.4.775')
+  set completeopt+=noinsert
+endif
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 " Do not use custom listchars in a Linux console,
 " the font does not provide all these characters.
-set list
 if $TERM != 'linux'
   set listchars=eol:¬,tab:»\ ,trail:·
   if has('patch-7.4.710')
@@ -104,14 +110,8 @@ if has('patch-7.4.2201')
   set signcolumn=yes
 endif
 
-set completeopt=menu,menuone
-if has('patch-7.4.775')
-  set completeopt+=noinsert
-endif
-
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
+if has('termguicolors')
+  set termguicolors
 endif
 
 " Automatically open quick fix window after it is populated (:grep only).
