@@ -66,6 +66,7 @@ set relativenumber
 set ruler
 set scrolloff=10
 set shiftwidth=4
+set showbreak=\ >\ 
 set showcmd
 set showmatch
 set sidescrolloff=30
@@ -122,6 +123,8 @@ autocmd Filetype
   \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown,purescript
   \ setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
   \ | if has('patch-9.0.1938') || has('nvim-0.10.0') | set listchars+=leadmultispace:│· | endif
+
+autocmd Filetype log setlocal nomodifiable nolist colorcolumn=
 
 " Auto-wrap text on textwidth in markdown files.
 autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
