@@ -122,7 +122,7 @@ autocmd QuickFixCmdPost grep copen
 autocmd Filetype
   \ vim,javascript,json,yaml,css,less,sass,xml,html,haml,sh,zsh,markdown,purescript
   \ setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
-  \ | if has('patch-9.0.1938') || has('nvim-0.10.0') | set listchars+=leadmultispace:│· | endif
+  \ | if has('patch-9.0.1938') || has('nvim-0.10.0') | setlocal listchars+=leadmultispace:│· | endif
 
 autocmd Filetype log setlocal nomodifiable nolist colorcolumn=
 
