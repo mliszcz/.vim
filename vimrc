@@ -149,6 +149,11 @@ nnoremap <leader>o :Buffers!<CR>
 
 noremap <leader>g :silent execute "grep! <cword>"<CR>
 
+nnoremap <silent> <C-H> :colder<CR>
+nnoremap <silent> <C-J> :cnext<CR>
+nnoremap <silent> <C-K> :cprevious<CR>
+nnoremap <silent> <C-L> :cnewer<CR>
+
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
 
