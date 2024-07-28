@@ -81,10 +81,6 @@ set whichwrap+=<,>,h,l,[,]
 set wildmenu
 set wildmode=full
 
-if has('unnamedplus')
-  set clipboard+=unnamedplus
-endif
-
 set completeopt=menu,menuone
 if has('patch-7.4.775')
   set completeopt+=noinsert
@@ -147,7 +143,17 @@ map <space> <leader>
 nnoremap <leader>p :Files!<CR>
 nnoremap <leader>o :Buffers!<CR>
 
-noremap <leader>g :silent execute "grep! <cword>"<CR>
+nnoremap <leader>g :silent execute "grep! <cword>"<CR>
+
+" Rename with feedback.
+nnoremap <leader>r :%s/<c-r>=expand("<cword>")<cr>/<c-r>=expand("<cword>")<cr>
+nnoremap <leader>R :%s/<c-r>=expand("<cWORD>")<cr>/<c-r>=expand("<cWORD>")<cr>
+
+" Prefix for accessing the clipboard register.
+nnoremap <silent> gs "+
+
+nnoremap <silent> <CR> :Files!<CR>
+nnoremap <silent> <BS> :Buffers!<CR>
 
 nnoremap <silent> <C-H> :colder<CR>
 nnoremap <silent> <C-J> :cnext<CR>
@@ -179,10 +185,6 @@ inoremap <silent> <C-S> <C-O>:lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> grd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> grD :lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gri :lua vim.lsp.buf.implementation()<CR>
-
-" Rename with feedback.
-nnoremap <leader>r :%s/<c-r>=expand("<cword>")<cr>/<c-r>=expand("<cword>")<cr>
-nnoremap <leader>R :%s/<c-r>=expand("<cWORD>")<cr>/<c-r>=expand("<cWORD>")<cr>
 
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
 let g:fzf_preview_window = [] " Disable preview for commands like :Files.
