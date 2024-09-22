@@ -165,7 +165,7 @@ nnoremap <silent> <leader>c :Gitsigns setqflist "all"<CR>
 nnoremap <silent> <leader>hs :Gitsigns stage_hunk<CR>
 nnoremap <silent> <leader>hr :Gitsigns reset_hunk<CR>
 nnoremap <silent> <leader>hu :Gitsigns undo_stage_hunk<CR>
-nnoremap <silent> <leader>hc :Gitsigns preview_hunk<CR>
+nnoremap <silent> <leader>hp :Gitsigns preview_hunk<CR>
 
 " These mappings should be default starting with 0.11.
 " See: https://github.com/neovim/neovim/pull/28650
