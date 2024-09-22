@@ -64,7 +64,7 @@ set nowrap
 set number
 set relativenumber
 set ruler
-set scrolloff=10
+set scrolloff=999
 set shiftwidth=4
 set showbreak=\ >\ 
 set showcmd
