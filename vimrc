@@ -160,6 +160,8 @@ nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> ]c :Gitsigns next_hunk<CR>
 nnoremap <silent> [c :Gitsigns prev_hunk<CR>
 
+nnoremap <silent> <leader>e :lua vim.diagnostic.open_float()<CR>
+
 nnoremap <silent> <leader>c :Gitsigns setqflist "all"<CR>
 
 nnoremap <silent> <leader>hs :Gitsigns stage_hunk<CR>
