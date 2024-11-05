@@ -186,6 +186,13 @@ nnoremap <silent> gri :lua vim.lsp.buf.implementation()<CR>
 
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
 let g:fzf_preview_window = [] " Disable preview for commands like :Files.
+" Add custom action for yanking the selected file name.
+" Copied from: https://github.com/junegunn/fzf.vim/issues/772
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-y': {lines -> setreg('"', join(lines, "\n"))}}
 
 " Commands for ripgrep, copied from fzf.vim with the following changes:
 " * bang behavior is inverted, i.e. omitting it will use the whole screen,
