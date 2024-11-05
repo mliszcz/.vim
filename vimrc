@@ -149,6 +149,8 @@ nnoremap <leader>g :silent execute "grep! <cword>"<CR>
 nnoremap <leader>r :%s/<c-r>=expand("<cword>")<cr>/<c-r>=expand("<cword>")<cr>
 nnoremap <leader>R :%s/<c-r>=expand("<cWORD>")<cr>/<c-r>=expand("<cWORD>")<cr>
 
+nnoremap <leader>i :lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>
+
 nnoremap <silent> <C-H> :colder<CR>
 nnoremap <silent> <C-J> :cnext<CR>
 nnoremap <silent> <C-K> :cprevious<CR>
