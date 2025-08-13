@@ -170,18 +170,10 @@ nnoremap <silent> <leader>hr :Gitsigns reset_hunk<CR>
 nnoremap <silent> <leader>hu :Gitsigns undo_stage_hunk<CR>
 nnoremap <silent> <leader>hp :Gitsigns preview_hunk<CR>
 
-" These mappings should be default starting with 0.11.
-" See: https://github.com/neovim/neovim/pull/28650
-nnoremap <silent> grn :lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> gra :lua vim.lsp.buf.code_action()<CR>
-xnoremap <silent> gra :lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> grr :lua vim.lsp.buf.references()<CR>
-inoremap <silent> <C-S> <C-O>:lua vim.lsp.buf.signature_help()<CR>
-
-" These are TBD according to the recent comments in #28650.
+" These are TBD according to the recent comments in:
+" https://github.com/neovim/neovim/pull/28650
 nnoremap <silent> grd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> grD :lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gri :lua vim.lsp.buf.implementation()<CR>
 
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
 let g:fzf_preview_window = [] " Disable preview for commands like :Files.
