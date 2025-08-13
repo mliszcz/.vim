@@ -131,8 +131,7 @@ autocmd Filetype markdown setlocal textwidth=80 formatoptions+=t
 " Automatically remove trailing empty lines on save.
 " autocmd BufWritePre * %s#\($\n\s*\)\+\%$##e
 
-" Prefer // over /**/. For C++ This will be the default starting with 0.11.
-autocmd Filetype cpp setlocal commentstring=//\ %s
+" Needed for built-in commenting. Normally this is set by ftplugins.
 autocmd Filetype ttcn setlocal commentstring=//\ %s
 
 autocmd BufRead,BufNewFile *.tpp set filetype=cpp
