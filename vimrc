@@ -214,19 +214,28 @@ else
   colorscheme darkblue
 endif
 
-" Remove the diagnostic sign (text) and highlight the line number instead.
-" We do not define a new highlight group but use the one from the virtual
-" text instead. See also :h diagnostic-signs, diagnostic-highlights, and
-" https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization.
-if has(s:min_nvim_version)
-  sign define DiagnosticSignError text= texthl= linehl= numhl=DiagnosticVirtualTextError
-  sign define DiagnosticSignWarn  text= texthl= linehl= numhl=DiagnosticVirtualTextWarn
-  sign define DiagnosticSignInfo  text= texthl= linehl= numhl=DiagnosticVirtualTextInfo
-  sign define DiagnosticSignHint  text= texthl= linehl= numhl=DiagnosticVirtualTextHint
-endif
-
 if has(s:min_nvim_version)
 lua << EOF
+
+-- Remove the diagnostic sign (text) and highlight the line number instead.
+-- We do not define a new highlight group but use the one from the virtual
+-- text instead. See also :h diagnostic-signs, diagnostic-highlights.
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticVirtualTextError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticVirtualTextWarn',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticVirtualTextInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticVirtualTextHint',
+    },
+  }
+})
 
 -- Place a sign when a mark is defined. This is deliberately not cleared when
 -- the mark is removed to simplify the implementation. The signs are assigned
