@@ -1,6 +1,6 @@
 " This configuration is intended to be used with recent Neovim versions,
 " but basic support is provided also for Vim starting from 7.4 version.
-let s:min_nvim_version = 'nvim-0.10.0'
+let s:min_nvim_version = 'nvim-0.12.0'
 
 " https://stackoverflow.com/questions/4976776/how-to-get-path-to-the-current-vimscript-being-executed
 let s:vimdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -24,7 +24,6 @@ if has(s:min_nvim_version)
   packadd! navarasu/onedark.nvim
   packadd! nvim-treesitter/nvim-treesitter
   packadd! nvim-treesitter/nvim-treesitter-context
-  packadd! nvim-treesitter/nvim-treesitter-textobjects
 endif
 
 " The syntax on/enable option is not necessary when using Tree-sitter but
@@ -213,6 +212,7 @@ else
 endif
 
 if has(s:min_nvim_version)
+autocmd FileType * lua pcall(vim.treesitter.start)
 lua << EOF
 
 -- Remove the diagnostic sign (text) and highlight the line number instead.
@@ -247,39 +247,8 @@ vim.keymap.set('n', 'm', function ()
   vim.cmd("normal! m" .. mark)
 end)
 
-require('gitsigns').setup()
-
-require('treesitter-context').setup()
-
-require('nvim-treesitter.configs').setup {
-  highlight = {
-    enable = true,
-    -- Do not run `:h syntax` for files handled by Tree-sitter.
-    additional_vim_regex_highlighting = false,
-  },
-  indent = {
-    enable = true,
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      -- Automatically jump forward to textobj, similar to targets.vim
-      lookahead = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["ia"] = "@parameter.inner",
-        ["aa"] = "@parameter.outer",
-      },
-    },
-  },
-}
-
 -- Disable LSP logging. This file grows very quickly.
-vim.lsp.set_log_level('OFF')
+vim.lsp.log.set_level('OFF')
 require('vim.lsp.log').set_format_func(vim.inspect)
 EOF
 endif
