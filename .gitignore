@@ -1,3 +1,6 @@
 swap/
 plugin/
 .netrwhist
+
+# Manually installed on some machines
+pack/github/start/copilot.vim/
