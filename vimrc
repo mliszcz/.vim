@@ -167,11 +167,6 @@ nnoremap <silent> <leader>hr :Gitsigns reset_hunk<CR>
 nnoremap <silent> <leader>hu :Gitsigns undo_stage_hunk<CR>
 nnoremap <silent> <leader>hp :Gitsigns preview_hunk<CR>
 
-" These are TBD according to the recent comments in:
-" https://github.com/neovim/neovim/pull/28650
-nnoremap <silent> grd :lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> grD :lua vim.lsp.buf.declaration()<CR>
-
 let g:fzf_layout = { 'down': '~40%' } " Use bottom 40% of screen for fzf.
 let g:fzf_preview_window = [] " Disable preview for commands like :Files.
 " Add custom action for yanking the selected file name.
